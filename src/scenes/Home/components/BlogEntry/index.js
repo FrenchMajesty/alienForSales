@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
+import { formatDate } from '~/services/Helper'
 
 class BlogEntry extends Component {
 
@@ -21,18 +22,13 @@ class BlogEntry extends Component {
         )
     }
 
-    formatDate(date) {
-        const d = new Date(date)
-        return d.toLocaleDateString('en-US', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
-    }
-
     renderHead() {
         const {data} = this.props
         return (
             <div className="date-header">
                 <span className="out">
                     <i className="fa fa-fw fa-calendar"></i>
-                    <span className="dte">{this.formatDate(data.date)}</span>
+                    <span className="dte">{formatDate(data.date)}</span>
                 </span>
             </div>
         )
