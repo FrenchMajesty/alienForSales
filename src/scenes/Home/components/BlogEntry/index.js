@@ -50,7 +50,8 @@ class BlogEntry extends Component {
                 <div className="post-footer-line post-footer-line-2">
                     <span className="post-labels">Labels:
                         {data.tags.map((tag, i) => {
-                            return (<sect key={i}><Link to="#" rel="tag">{tag}</Link><i> </i></sect>)
+                            const comma = (i != 0) ? ', ' : ''
+                            return (<sect key={i}><i>{comma}</i><Link to="#" rel="tag">{tag}</Link></sect>)
                         })}
                     </span>
                 </div>
