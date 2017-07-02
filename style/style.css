@@ -1074,7 +1074,7 @@ overflow: visible;
 }
 /* Btn Style */
 /* Btn Style */
-#blog-pager a {
+#blog-pager a, .basic-button {
 position: relative;
 overflow: hidden;
 vertical-align: middle;

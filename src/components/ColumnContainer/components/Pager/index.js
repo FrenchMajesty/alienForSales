@@ -1,16 +1,14 @@
 import React from 'react'
 import {Link} from 'react-router'
+import BasicButton from '~/components/Button/BasicButton'
 
 
 const Pager = (props) => {
     
     return (
         <div className="blog-pager" id="blog-pager">
-            <span id="blog-pager-older-link">
-                <Link to="#" className="blog-pager-older-link" id="Blog1_blog-pager-older-link" title="Older Posts">
-                    Older Posts
-                </Link>
-            </span>
+        <BasicButton title="Newer Posts" target="#" />
+        <BasicButton title="Older Posts" target="#" />
             <Link to="/" className="home-link">Home</Link>
         </div>
     )
