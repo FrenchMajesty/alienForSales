@@ -43,8 +43,7 @@ class Home extends Component {
                 <div className="blog-posts hfeed">
                     <BlogEntry data={data} author={author} />
                 </div>
-
-                    
+                    <Pager />
                     <div className="blog-feeds">
                         <div className="feed-links">
                             Click here to: <Link to="#" className="feed-link" target="_blank">Subscribe to my blog</Link>

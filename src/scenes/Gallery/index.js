@@ -8,6 +8,7 @@ import ColumnContainer from '~/components/ColumnContainer'
 import Footer from '~/components/Footer'
 import GalleryGrid from '~/components/Gallery/GalleryGrid'
 import GalleryItem from '~/components/Gallery/GalleryItem'
+import Pager from '~/components/ColumnContainer/components/Pager'
 
 class Gallery extends Component {
     
@@ -46,12 +47,11 @@ class Gallery extends Component {
 
             <ColumnContainer type="center">
                 <div className="blog-posts hfeed">
-                
                     <GalleryGrid>
                         {this.renderGallery()}
                     </GalleryGrid>
-            
                 </div>
+                <Pager />
                 </ColumnContainer>
                 
                 
