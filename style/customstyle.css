@@ -1,0 +1,43 @@
+.navbar {
+    right: 11em;
+    position: relative;
+}
+@font-face {
+    font-family: Bebas Neue;
+    src: url(../fonts/BebasNeue.otf);
+}
+.about-text {
+    line-height: 2;
+}
+.author-name {
+    display: block;
+    left: 0.5em;
+    color: #4caed8;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.gallery-grid {
+    width: 90%;
+    left: 7em;
+}
+.gallery-card {
+    display: inline-block;
+    width: 33%;
+}
+.gallery-item {
+    width: 19em;
+}
+.gallery-item .item-title {
+    font-size: 0.7em;
+}
+.gallery-item .item-footer {
+    padding: 10px;
+    font-size: .9em;
+}
+.item-date {
+    max-width: 100%;
+    right: 5.5em;
+}
+.purchase-icon {
+    color: #f68121;
+}

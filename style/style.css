@@ -5,15 +5,10 @@ Name:     Minima
 Date:     26 Feb 2004
 Updated by: Blogger Team
 ----------------------------------------------- */
-.navbar {
-    right: 11em;
-    position: relative;
-}
-@font-face {
-    font-family: Bebas Neue;
-    src: url(../fonts/BebasNeue.otf);
-}
 /* Use this with templates/template-twocol.html */
+:root {
+    --mainColor: #4caed8;
+}
 #navbar-iframe{height:0;visibility:hidden;display:none}
 body{background:#fff;color:#999999;font:x-small Georgia Serif;font-size:small;text-align:center;margin:0;
 }
@@ -788,7 +783,7 @@ border:1px solid #333;
 line-height:40px;
 text-align:center;
 border-radius: 50%;
-background-color:#FF4B66;
+background-color:var(--mainColor);
 color:#fff;
 border-color:transparent;
 box-shadow:2px 2px 2px rgba(0,0,0,0.1);
@@ -1009,6 +1004,7 @@ width:40px;
 height:40px;
 line-height:40px;
 text-align:center;
+color: #fff;
 border-radius:50%;
 border:0px solid #eee;
 right:-20px;
@@ -1036,10 +1032,13 @@ border: none;
 background-color: transparent !important;
 }
 .summarized .post-icons .item-control.blog-admin:after {
-content:"\f040";
-font-family:FontAwesome, sans-serif;
 color:#fff;
 }
+.fa-pencil {
+content: "\f040";
+font-family:FontAwesome, sans-serif;
+}
+
 .summarized .post-icons .item-control.blog-admin img {
 display:none;
 }
