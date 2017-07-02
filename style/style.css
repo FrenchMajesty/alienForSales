@@ -1100,10 +1100,14 @@ box-shadow: 0px 2px 7px -1px rgba(0,0,0,0.6);
 .basic-button:hover {
     color: #000;
 }
-.basic-button:disabled {
+.basic-button:disabled, .disabled {
     background-color: #d8d8d8 !important;
     box-shadow: 0px 0px;
     color: #9c9c9c;
+}
+.disabled:hover {
+    color: #9c9c9c;
+    box-shadow: 0px 0px;
 }
 #blog-pager a:active, .basic-button:active {
 box-shadow: 0px 2px 5px -2px rgba(0,0,0,0.6);
