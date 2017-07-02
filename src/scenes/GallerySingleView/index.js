@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router'
 import ItemCard from './components/ItemCard'
-import PageWrapper from '~/components/PageWrapper'
-import ColumnContainer from '~/components/ColumnContainer'
+import PageWrapper from '~/components/Container/PageWrapper'
+import ColumnContainer from '~/components/Container/ColumnContainer'
 
 const GallerySingleViw = (props) => {
     
+    new WOW().init()
      const data = {
             title: props.params.id,
             summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non ex venenatis, egestas est vitae, lacinia libero. Sed pretium aliquet...",
@@ -26,7 +27,7 @@ const GallerySingleViw = (props) => {
 
             <ColumnContainer type="center">
                 <div className="blog-posts hfeed">
-                    <ItemCard data={data} author={author} />
+                    <ItemCard data={data} author={author} animation="bounceInLeft" />
                 </div>
                 </ColumnContainer>
 

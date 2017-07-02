@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router'
-import PageWrapper from '~/components/PageWrapper'
-import ColumnContainer from '~/components/ColumnContainer'
+import PageWrapper from '~/components/Container/PageWrapper'
+import ColumnContainer from '~/components/Container/ColumnContainer'
 
 const AboutMe = (props) => {
-
+    
+        new WOW().init()
         return (
             <PageWrapper>
                 <div className="main-outer">
@@ -19,7 +20,7 @@ const AboutMe = (props) => {
                 <div className="date-outer">
 
                     <div className="date-posts">
-                    <div className="post-outer summarized wow fadeInLeft">
+                    <div className="post-outer summarized wow bounce">
                     <div className="post hentry" itemProp="blogPost" itemScope="itemscope" itemType="http://schema.org/BlogPosting">
                     <div className="post-body entry-content" id="post-body-5393435426553883135" itemProp="description articleBody">
 

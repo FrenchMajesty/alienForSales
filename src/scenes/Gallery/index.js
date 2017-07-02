@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import PageWrapper from '~/components/PageWrapper'
-import ColumnContainer from '~/components/ColumnContainer'
+import _ from 'lodash'
+import PageWrapper from '~/components/Container/PageWrapper'
+import ColumnContainer from '~/components/Container/ColumnContainer'
 import GalleryGrid from './components/GalleryGrid'
 import GalleryItem from './components/GalleryItem'
-import Pager from '~/components/ColumnContainer/components/Pager'
+import Pager from '~/components/Container/ColumnContainer/Pager'
 import SearchBar from './components/SearchBar'
 
 class Gallery extends Component {
     
+    componentDidMount() {
+        new WOW().init()
+    }
     
-    searchGallery() {
+    searchGallery(query) {
         
     }
     
@@ -26,11 +30,7 @@ class Gallery extends Component {
         
         return (
             <div>
-            <GalleryItem data={gal} author={author} />
-            <GalleryItem data={gal} author={author} />
-            <GalleryItem data={gal} author={author} />
-            <GalleryItem data={gal} author={author} />
-            <GalleryItem data={gal} author={author} />
+                {_.times(9, i => <GalleryItem data={gal} author={author} animation="zoomInDown" />)}
             </div>
         )
     }

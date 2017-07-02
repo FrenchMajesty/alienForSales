@@ -47,3 +47,6 @@ button{
 .single-view-date {
     right: 21.5em;
 }
+.wow {
+    visibility: hidden;
+}

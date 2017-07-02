@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import BlogEntry from './components/BlogEntry'
-import PageWrapper from '~/components/PageWrapper'
+import PageWrapper from '~/components/Container/PageWrapper'
 import SideBarWidget from '~/components/SideBarWidget'
-import ColumnContainer from '~/components/ColumnContainer'
-import Pager from '~/components/ColumnContainer/components/Pager'
+import ColumnContainer from '~/components/Container/ColumnContainer'
+import Pager from '~/components/Container/ColumnContainer/Pager'
 
 class Home extends Component {
+    
+    componentDidMount() {
+        new WOW().init()
+    }
 
     render() {
 
