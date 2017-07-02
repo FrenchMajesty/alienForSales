@@ -29,7 +29,7 @@ const ItemCard = (props) => {
 
     const renderFooter = () => {
         const {data, author} = props
-
+        
         return(
             <div className="post-footer" style={{textAlign: "initial"}}>
                 <div className="post-footer-line post-footer-line-1">
@@ -54,13 +54,15 @@ const ItemCard = (props) => {
     }
 
         const {data} = props
+        const animation = props.animation || "fadeInLeft"
+        
         return (
             <div className="date-outer">
 
                 {renderHead()}
 
                 <div className="date-posts">
-                <div className="post-outer summarized wow fadeInLeft">
+                <div className={"post-outer summarized wow "+animation}>
                 <div className="post hentry" itemProp="blogPost" itemScope="itemscope" itemType="http://schema.org/BlogPosting">
                 <div className="post-body entry-content" id="post-body-5393435426553883135" itemProp="description articleBody">
 

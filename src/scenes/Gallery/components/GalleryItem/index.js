@@ -36,13 +36,14 @@ const GalleryItem = (props) => {
         return d.toLocaleDateString('en-US', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
     }
     
+    const animation = props.animation || "fadeInLeft"
     return (
          <div className="date-outer gallery-card">
 
                 {renderHead()}
 
                 <div className="date-posts gallery-item">
-                <div className="post-outer summarized wow fadeInLeft">
+                <div className={"post-outer summarized wow "+animation}>
                 <div className="post hentry" itemProp="blogPost" itemScope="itemscope" itemType="http://schema.org/BlogPosting">
                 <div className="post-body entry-content" id="post-body-5393435426553883135" itemProp="description articleBody">
 
