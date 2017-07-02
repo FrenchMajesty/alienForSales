@@ -35,10 +35,10 @@ const Navbar = (props) => {
                 <Link to="/"><span>Home</span></Link>
             </li>
             <li>
-                <Link to="#home"><span>About</span></Link>
+                <Link to="/about"><span>About</span></Link>
             </li>
             <li>
-                <Link to="#home"><span>Gallery</span></Link>
+                <Link to="gallery"><span>Gallery</span></Link>
             </li>
             <li>
                 <Link to="#home"><span>Another Page</span></Link>

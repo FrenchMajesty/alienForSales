@@ -6,7 +6,7 @@ const Footer = (props) => {
     const renderLabels = () => {
         const {tags} = props
 
-        if(tags.length == 0){
+        if(!tags || tags.length == 0){
             return <p>No label has been attributed to any post.</p>
         }else {
             return(tags.map((tag, i) => {
@@ -18,7 +18,7 @@ const Footer = (props) => {
     const renderFeed = () => {
         const {posts} = props
 
-        if(posts.length == 0) {
+        if(!posts || posts.length == 0) {
             return <p>There are no posts on the site to show just yet.</p>
         }else {
             return(posts.map((post, i) => {
