@@ -21,18 +21,6 @@ class BlogEntry extends Component {
         )
     }
 
-    editButton() {
-        return (
-            <span className="post-icons">
-                <span className="item-control blog-admin pid-988606120">
-                    <Link to="#" title="Edit Post">
-                        <img alt="" className="icon-action" height="18" src="http://img2.blogblog.com/img/icon18_edit_allbkg.gif" width="18" />
-                    </Link>
-                </span>
-            </span>
-        )
-    }
-
     formatDate(date) {
         const d = new Date(date)
         return d.toLocaleDateString('en-US', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
@@ -60,7 +48,6 @@ class BlogEntry extends Component {
                             {data.stock &&
                                 <Link to="#buy" className="comment-link"> {data.stock} left in stock! </Link>}
                     </span>
-                    {this.editButton()}
                     <div className="post-share-buttons goog-inline-block"></div>
                 </div>
 

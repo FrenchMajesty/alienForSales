@@ -6,6 +6,7 @@ import PageContainer from '~/components/PageContainer'
 import SideBarWidget from '~/components/SideBarWidget'
 import ColumnContainer from '~/components/ColumnContainer'
 import Footer from '~/components/Footer'
+import Pager from '~/components/ColumnContainer/components/Pager'
 
 class Home extends Component {
 
@@ -43,15 +44,7 @@ class Home extends Component {
                     <BlogEntry data={data} author={author} />
                 </div>
 
-                    <div className="blog-pager" id="blog-pager">
-                        <span id="blog-pager-older-link">
-                        <Link to="#" className="blog-pager-older-link" id="Blog1_blog-pager-older-link" title="Older Posts">
-                            Older Posts
-                        </Link>
-                        </span>
-                        <Link to="#" className="home-link">Home</Link>
-                    </div>
-
+                    
                     <div className="blog-feeds">
                         <div className="feed-links">
                             Click here to: <Link to="#" className="feed-link" target="_blank">Subscribe to my blog</Link>
