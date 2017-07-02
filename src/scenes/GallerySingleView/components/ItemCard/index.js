@@ -80,7 +80,7 @@ const ItemCard = (props) => {
                         <div className="post-summary">
                             {data.summary}
                         </div><br/>
-                        <center><BasicButton target="#" title="Buy now" color="#f15a24" disabled={!data.stock ? true: false} /></center>
+                        <center><BasicButton className={!data.stock ? "disabled": ""} target="#" title="Buy now" color="#f15a24"/></center>
                        
                     </div>
 

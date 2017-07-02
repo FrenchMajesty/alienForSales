@@ -3,14 +3,13 @@ import {Link} from 'react-router'
 
 const BasicButton = (props) => {
     
-    const {target,color, title, icon, className, id, disabled} = props
+    const {target,color, title, icon, className, id} = props
     const bgCol = color ? {backgroundColor: color} : {}
     
-    const disabler = disabled ? {disabled: "true"} : {}
+    const disabler = className ? {disabled: "true"} : {to: target}
     
     return (
-    <button
-        to={!disabled ? target : "#"}
+    <Link
         className={"home-link basic-button " + className}
         style={{overflow: "hidden"}, bgCol}
         id={id}
@@ -20,7 +19,7 @@ const BasicButton = (props) => {
         {icon &&
             <i className="material-icons">{icon}</i>}
             {props.title}
-    </button>
+    </Link>
     )
 }
 

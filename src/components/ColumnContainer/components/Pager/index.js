@@ -9,8 +9,8 @@ const Pager = (props) => {
     const oldButton = "blog-pager-older-link"
     return (
         <div className="blog-pager" id="blog-pager">
-        <BasicButton id={newButton} className={newButton} title="Newer Posts" target="#" />
-        <BasicButton id={oldButton} className={oldButton} title="Older Posts" target="#" />
+        <BasicButton id={newButton} title="Newer Posts" target="#" />
+        <BasicButton id={oldButton} title="Older Posts" target="#" />
             <Link to="/" className="home-link">Home</Link>
         </div>
     )
