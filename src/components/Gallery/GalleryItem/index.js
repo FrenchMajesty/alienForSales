@@ -11,6 +11,7 @@ const GalleryItem = (props) => {
             <div className="post-footer item-footer" style={{textAlign: "initial"}}>
                 <div className="post-footer-line post-footer-line-1">
                     <span className="post-author vcard">By {author}</span>
+                    <span className="post-comment-link">{data.stock} left in stock!</span>
                     <RoundActionButton icon={"attach_money"} title={data.stock+" left in stock!"} />
                     <div className="post-share-buttons goog-inline-block"></div>
                 </div>
