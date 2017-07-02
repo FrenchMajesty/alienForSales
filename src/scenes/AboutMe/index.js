@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
 import PageWrapper from '~/components/PageWrapper'
-import SideBarWidget from '~/components/SideBarWidget'
 import ColumnContainer from '~/components/ColumnContainer'
 
 const AboutMe = (props) => {
