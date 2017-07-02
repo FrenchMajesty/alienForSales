@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PageContainer from '../PageContainer'
+import PageContainer from './components/PageContainer'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 
