@@ -1,3 +1,6 @@
+button{
+    border: 0;
+}
 .navbar {
     right: 11em;
     position: relative;
@@ -40,4 +43,7 @@
 }
 .purchase-icon {
     color: #f68121;
+}
+.single-view-date {
+    right: 21.5em;
 }
