@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import _ from 'lodash'
-import Navbar from '~/components/Navbar'
-import PageContainer from '~/components/PageContainer'
-import SideBarWidget from '~/components/SideBarWidget'
+import PageWrapper from '~/components/PageWrapper'
 import ColumnContainer from '~/components/ColumnContainer'
-import Footer from '~/components/Footer'
-import GalleryGrid from '~/components/Gallery/GalleryGrid'
-import GalleryItem from '~/components/Gallery/GalleryItem'
+import GalleryGrid from './components/GalleryGrid'
+import GalleryItem from './components/GalleryItem'
 import Pager from '~/components/ColumnContainer/components/Pager'
+import SearchBar from './components/SearchBar'
 
 class Gallery extends Component {
+    
+    
+    searchGallery() {
+        
+    }
     
     renderGallery() {
         const author = "Bob Marley"
@@ -36,33 +38,32 @@ class Gallery extends Component {
     render() {
 
         return (
-            <PageContainer>
-                <Navbar />
+            <PageWrapper>
+                <SearchBar placeholder="Search the gallery" onSubmit={this.searchGallery} />
 
-            <div className="main-outer">
-            <div className="fauxborder-left main-fauxborder-left">
-            <div className="main-inner gallery-grid" style={{width: "90%"}}>
-            <div className="columns" style={{padding: "0"}}>
-            <div className="columns-inner">
+                <div className="main-outer">
+                <div className="fauxborder-left main-fauxborder-left">
+                <div className="main-inner gallery-grid" style={{width: "90%"}}>
+                <div className="columns" style={{padding: "0"}}>
+                <div className="columns-inner">
 
-            <ColumnContainer type="center">
-                <div className="blog-posts hfeed">
-                    <GalleryGrid>
-                        {this.renderGallery()}
-                    </GalleryGrid>
-                </div>
-                <Pager />
+                <ColumnContainer type="center">
+                    <div className="blog-posts hfeed">
+                        <GalleryGrid>
+                            {this.renderGallery()}
+                        </GalleryGrid>
+                    </div>
+                    <Pager />
                 </ColumnContainer>
-                
-                
-            </div>
-            <div style={{clear: "both"}} />
-            </div>
-            </div>
-            </div>
-            </div>
-            <Footer />
-            </PageContainer>
+
+
+                </div>
+                <div style={{clear: "both"}} />
+                </div>
+                </div>
+                </div>
+                </div>
+            </PageWrapper>
         )
     }
 }

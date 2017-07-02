@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import Navbar from '~/components/Navbar'
 import BlogEntry from './components/BlogEntry'
-import PageContainer from '~/components/PageContainer'
+import PageWrapper from '~/components/PageWrapper'
 import SideBarWidget from '~/components/SideBarWidget'
 import ColumnContainer from '~/components/ColumnContainer'
-import Footer from '~/components/Footer'
 import Pager from '~/components/ColumnContainer/components/Pager'
 
 class Home extends Component {
@@ -30,8 +28,7 @@ class Home extends Component {
 
 
         return (
-            <PageContainer>
-                <Navbar />
+            <PageWrapper>
 
             <div className="main-outer">
             <div className="fauxborder-left main-fauxborder-left">
@@ -75,8 +72,7 @@ class Home extends Component {
             </div>
             </div>
             </div>
-            <Footer posts={minList} tags={tags} />
-            </PageContainer>
+            </PageWrapper>
         )
     }
 }
