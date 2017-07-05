@@ -5,6 +5,8 @@ import Footer from './components/Footer'
 
 const PageWrapper = (props) => {
       
+    window.admin = false
+    
       const tags = ["story", "label", "alien", "jesus","angel","love"]
         const minList = [
             {title: "Forests And Its Mesmerizing View", date: "05/30/2016"},
