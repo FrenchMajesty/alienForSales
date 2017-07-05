@@ -2,16 +2,53 @@
 <html>
   <head>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--link rel="stylesheet" href="/style/bootstrap.css"-->
     <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.6/animate.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/style/font-awesome.min.css">
-    <link rel="stylesheet" href="/style/style.css">
-    <link rel="stylesheet" href="/style/customstyle.css">
+      <script src="/jquery.min.js"></script>
+      <script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" type="text/javascript"></script>
   </head>
-  <body>
     <div id="container"></div>
-  </body>
+
   <script src="/bundle.js"></script>
+    <script>
+        
+        if(admin) {
+            
+            $(document.head)
+                .append('<link rel="stylesheet" href="/style/bootstrap.css">')
+                .append('<link rel="stylesheet" href="/admin/css/materialize.css">')
+                .append('<link rel="stylesheet" href="/admin/plugins/node-waves/waves.css">')
+                .append('<link rel="stylesheet" href="/admin/plugins/animate-css/animate.css">')
+                .append('<link rel="stylesheet" href="/admin/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css">')
+                .append('<link rel="stylesheet" href="/admin/plugins/morrisjs/morris.css">')
+                .append('<link rel="stylesheet" href="/admin/css/themes/all-themes.css">')
+                .append('<link rel="stylesheet" href="/admin/css/style.css">')
+                .append('<script src="/admin/plugins/node-waves/waves.js"><\/script>')
+                .append('<script src="/admin/js/admin.js"><\/script>')  
+                .append('<script src="/admin/plugins/jquery-validation/jquery.validate.js"><\/script>')    
+                .append('<script src="/admin/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"><\/script>')
+                .append('<script src="/admin/plugins/bootstrap-select/js/bootstrap-select.js"><\/script>')
+                .append('<script src="/admin/plugins/jquery-slimscroll/jquery.slimscroll.js"><\/script>')
+                .append('<script src="/admin/plugins/jquery-countto/jquery.countTo.js"><\/script>')
+                .append('<script src="/admin/plugins/raphael/raphael.min.js"><\/script>')
+                .append('<script src="/admin/plugins/morrisjs/morris.js"><\/script>')
+                .append('<script src="/admin/plugins/chartjs/Chart.bundle.js"><\/script>')
+                .append('<script src="/admin/plugins/flot-charts/jquery.flot.js"><\/script>')
+                .append('<script src="/admin/plugins/flot-charts/jquery.flot.resize.js"><\/script>')
+                .append('<script src="/admin/plugins/flot-charts/jquery.flot.pie.js"><\/script>')
+                .append('<script src="/admin/plugins/flot-charts/jquery.flot.categories.js"><\/script>')
+                .append('<script src="/admin/plugins/flot-charts/jquery.flot.time.js"><\/script>')
+                .append('<script src="/admin/plugins/jquery-sparkline/jquery.sparkline.js"><\/script>')
+                .append('<script src="/admin/plugins/autosize/autosize.js"><\/script>')
+
+        }else {
+            
+            $(document.head)
+                .append('<link rel="stylesheet" href="/style/style.css">')
+                .append('<link rel="stylesheet" href="/style/customstyle.css">')
+        }
+    </script>
 </html>
