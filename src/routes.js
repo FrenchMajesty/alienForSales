@@ -13,6 +13,8 @@ import Dashboard from './scenes/Admin/Dashboard'
 import EditGallery from './scenes/Admin/EditGallery'
 import AddGallery from './scenes/Admin/AddGallery'
 import AddBlog from './scenes/Admin/AddBlog'
+import BlogList from './scenes/Admin/BlogList'
+import Changelog from './scenes/Admin/Changelog'
 
 
 export default (
@@ -28,7 +30,9 @@ export default (
                 <Route path="/admin/login" component={Login} />
                 <Route path="/admin/gallery" component={EditGallery} />
                 <Route path="/admin/gallery/add" component={AddGallery} />
+                <Route path="/admin/blogs" component={BlogList} />
                 <Route path="/admin/blogs/add" component={AddBlog} />
+                <Route path="/admin/log" component={Changelog} />
             </Route>
         </Route>
 )
