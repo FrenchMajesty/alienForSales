@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-const Table = ({size, title, style}) => {
+const Table = ({children, size, title, tableStyle}) => {
     
     return (
                 <div className={"col-xs-12 col-sm-12 col-md-8 "+size}>
@@ -23,8 +23,8 @@ const Table = ({size, title, style}) => {
                         </div>
                         <div className="body">
                             <div className="table-responsive">
-                                <table className={"table dashboard-task-infos "+ style}>
-                                    {props.children}
+                                <table className={"table dashboard-task-infos "+ tableStyle}>
+                                    {children}
                                 </table>
                             </div>
                         </div>

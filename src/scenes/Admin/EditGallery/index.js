@@ -18,8 +18,7 @@ class EditGallery extends Component {
              <section className="content">
                 <div className="container-fluid">
                     
-                    <Table title="Gallery" size="col-lg-12">
-                            <table id="mainTable" className="table table-striped">
+                    <Table title="Gallery" size="col-lg-12" style="table-hover">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -78,7 +77,6 @@ class EditGallery extends Component {
                                         <th>5</th>
                                     </tr>
                                 </tfoot>
-                            </table>
                     </Table>
                 </div>
             </section>
