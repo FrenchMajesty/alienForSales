@@ -4,7 +4,6 @@ import { Link } from 'react-router'
 const SideNavigation = (props) => {
     
     const {user, active} = props
-    console.log(active.search(/^\/blogs/))
     return (
     
         <aside id="leftsidebar" className="sidebar">
