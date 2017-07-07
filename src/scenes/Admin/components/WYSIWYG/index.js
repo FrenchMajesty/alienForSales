@@ -1,8 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router'
 import TinyMCE from 'react-tinymce'
 
-const WYSIWYG = ({content}) => {
+const WYSIWYG = ({content, onChange}) => {
     
     return (
         <TinyMCE
@@ -21,6 +20,7 @@ const WYSIWYG = ({content}) => {
                 toolbar2: 'print preview media | forecolor backcolor emoticons',
                 image_advtab: true
             }}
+            onChange={onChange || null}
         />
     )
 }
