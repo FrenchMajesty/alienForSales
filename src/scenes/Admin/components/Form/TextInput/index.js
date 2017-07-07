@@ -1,8 +1,7 @@
 import React from 'react'
 
-const TextInput = (props) => {
+const TextInput = ({name, size, icon, placeholder, onChange}) => {
     
-    const {name, size, icon, placeholder} = props
     return (
         <div className={size}>
                 <div className="input-group">
@@ -10,7 +9,7 @@ const TextInput = (props) => {
                         <i className="material-icons">{icon || ''}</i>
                     </span>
                     <div className="form-line">
-                     <input name={name} type="text" className="form-control date" placeholder={placeholder} />
+                     <input name={name} type="text" className="form-control date" placeholder={placeholder} onChange={onChange || null} />
                    </div>
                 </div>
         </div>

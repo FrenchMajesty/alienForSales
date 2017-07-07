@@ -1,11 +1,12 @@
 import React from 'react'
 
-const Button = (props) => {
+const Button = ({className, title, icon, disabled, onClick}) => {
     
-    const {title, icon} = props
-    const classes = props.className || 'btn-default'
+    const classes = className || 'btn-default'
     return (
-        <button type="button" className={"btn waves-effect " + classes}>
+        <button type="button" className={"btn waves-effect " + classes} disabled={disabled ? true : null}
+                onClick={onClick}
+        >
             {icon &&
                 <i className="material-icons">{icon}</i>}
             <span>{title.toUpperCase()}</span></button>
