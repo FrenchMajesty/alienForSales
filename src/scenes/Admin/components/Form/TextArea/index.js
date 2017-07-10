@@ -1,18 +1,17 @@
 import React from 'react'
 import Textarea from 'react-textarea-autosize'
 
-const TextArea = (props) => {
+const TextArea = ({size, rows, autoGrow, name, onChange}) => {
     
-    const {size,rows,autoGrow, name} = props
     
     const getTextArea = () => {
         
         if(autoGrow){
             return (
-            <Textarea name={name} rows={rows || 4} className="form-control no-resize" placeholder="Please type a description or short story about your piece..."></Textarea>)
+            <Textarea name={name} minRows={rows || 4} className="form-control no-resize" placeholder="Please type a description or short story about your piece..." onChange={onChange || null}></Textarea>)
             
         }else {
-            return(<textarea name={name} rows={rows || 4} className="form-control no-resize" placeholder="Please type a description or short story about your piece..."></textarea>)
+            return(<textarea name={name} rows={rows || 4} className="form-control no-resize" placeholder="Please type a description or short story about your piece..." onChange={onChange || null}></textarea>)
         }
     }
     return (

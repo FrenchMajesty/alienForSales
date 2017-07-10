@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TextInput = ({name, size, icon, placeholder, onChange}) => {
+const TextInput = ({name, value, onChange, meta, size, icon, placeholder, error}) => {
     
     return (
         <div className={size}>
@@ -9,7 +9,9 @@ const TextInput = ({name, size, icon, placeholder, onChange}) => {
                         <i className="material-icons">{icon || ''}</i>
                     </span>
                     <div className="form-line">
-                     <input name={name} type="text" className="form-control date" placeholder={placeholder} onChange={onChange || null} />
+                     <input name={name} value={value} onChange={onChange} type="text" className="form-control date" placeholder={placeholder} />
+                        {error &&
+                        (<label id={name+"-error"} class="error" for={name}>{error}</label>)}
                    </div>
                 </div>
         </div>

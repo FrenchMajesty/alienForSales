@@ -1,10 +1,11 @@
 import React from 'react'
 import TinyMCE from 'react-tinymce'
 
-const WYSIWYG = ({content, onChange}) => {
+const WYSIWYG = ({name, content, onChange}) => {
     
     return (
         <TinyMCE
+            name={name}
             theme="modern"
             content={content}
             config={{
@@ -20,7 +21,7 @@ const WYSIWYG = ({content, onChange}) => {
                 toolbar2: 'print preview media | forecolor backcolor emoticons',
                 image_advtab: true
             }}
-            onChange={onChange || null}
+            onChange={onChange}
         />
     )
 }

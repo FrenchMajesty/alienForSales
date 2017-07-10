@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Button = ({className, title, icon, disabled, onClick}) => {
+const Button = ({className, title, icon, disabled, type, onClick}) => {
     
     const classes = className || 'btn-default'
     return (
-        <button type="button" className={"btn waves-effect " + classes} disabled={disabled ? true : null}
+        <button type={type || "button"} className={"btn waves-effect " + classes} disabled={disabled ? true : null}
                 onClick={onClick}
         >
             {icon &&
