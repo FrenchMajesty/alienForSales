@@ -15,20 +15,24 @@ class AddBlog extends Component {
     constructor(props){
         super(props)
         
-        this.state = {
-            title: '',
-            article: '<p>Enter your article here.</p>',
-            complete: false,
-            error: []
-        }
+        this.state = this.getInitialState()
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleSubmitForm = this.handleSubmitForm.bind(this)
         this.displayErrors = this.displayErrors.bind(this)
     }
     
+    getInitialState() {
+        return {
+            title: '',
+            article: '<p>Enter your article here.</p>',
+            complete: false,
+            error: []
+        }
+    }
+    
     displayErrors() {
         const {error} = this.state
-        return(error.map(err => { return <li>{err}</li> }))
+        return(error.map((err, i) => { return <li key={i}>{err}</li> }))
     }
     
     handleInputChange(e) {
@@ -58,7 +62,7 @@ class AddBlog extends Component {
             this.setState({error})
         }else {
             console.log('form is good for submit!')
-            this.setState({title: '', article: '', complete: false})
+            this.setState(this.getInitialState())
         }
     }
     
@@ -68,12 +72,7 @@ class AddBlog extends Component {
         return ( 
                 <section className="content">
                     <CardContainer title="Add new article" size="col-lg-12">
-                            {error.length > 0 &&
-                                <div className="row">
-                                <div className="alert alert-danger"><ul>
-                                {this.displayErrors()}
-                                </ul></div>
-                                </div>}
+                        
                             <div className="row clearfix">
                                 <TextInput
                                     placeholder="Title"
@@ -84,17 +83,31 @@ class AddBlog extends Component {
                                     onChange={this.handleInputChange}
                                 />
                             </div>
+                        
                             <div className="row">
-                                <WYSIWYG content={article} onChange={this.handleInputChange} />
+                                <WYSIWYG
+                                    name="article"
+                                    content={article}
+                                    onChange={(e) => this.setState({article: e.target.getContent()})}
+                                />
                             </div><br/>
+                        
                         <div className="row">
                             <div className="text-center">
-                                <Button className="btn-success btn-lg" title="Add" icon="add_box" 
+                                <Button type="submit" className="btn-success btn-lg" title="Add" icon="add_box" 
                                     disabled={!complete} onClick={this.handleSubmitForm}
                                 
                                 />
                             </div>
                         </div>
+            
+                            {error.length > 0 &&
+                                <div className="row"><br/>
+                                    <div className="alert alert-danger"><ul>
+                                        {this.displayErrors()}
+                                    </ul></div>
+                                </div>}
+                        
                     </CardContainer>  
                 </section>
         )
