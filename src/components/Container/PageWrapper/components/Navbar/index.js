@@ -15,11 +15,11 @@ const Navbar = (props) => {
                     <div id="header-inner">
                         <div className="titlewrapper">
                             <h1 className="title">
-                                <Link to="#">Neue</Link>
+                                <Link to="#">Aliens For Sales</Link>
                             </h1>
                         </div>
                         <div className="descriptionwrapper">
-                            <p className="description"><span>Simplistic design with a touch of modern concept.</span></p>
+                            <p className="description"><span>Buy aliens.</span></p>
                         </div>
                     </div>
                 </div></div>

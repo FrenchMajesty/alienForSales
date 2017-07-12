@@ -21,7 +21,9 @@ class Gallery extends Component {
     renderGallery() {
         const author = "Bob Marley"
         const gal = {
+            id: 20,
             title: "Mona Lisa",
+            summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non ex venenatis, egestas est vitae, lacinia libero. Sed pretium aliquet.",
             price: 300.5,
             date: "05/23/2017",
             stock: 17

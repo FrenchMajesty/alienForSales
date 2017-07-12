@@ -2,10 +2,8 @@ import React from 'react'
 import { Link } from 'react-router'
 import RoundActionButton from './components/RoundActionButton'
 
-const GalleryItem = (props) => {
-    
-    const {data, author} = props
-    
+const GalleryItem = ({data, author, animation}) => {
+
     const renderFooter = () => {
         return (
             <div className="post-footer item-footer" style={{textAlign: "initial"}}>
@@ -36,26 +34,30 @@ const GalleryItem = (props) => {
         return d.toLocaleDateString('en-US', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
     }
     
-    const animation = props.animation || "fadeInLeft"
+    const anim = animation || "fadeInLeft"
     return (
          <div className="date-outer gallery-card">
 
                 {renderHead()}
 
                 <div className="date-posts gallery-item">
-                <div className={"post-outer summarized wow "+animation}>
+                <div className={"post-outer summarized wow "+anim}>
                 <div className="post hentry" itemProp="blogPost" itemScope="itemscope" itemType="http://schema.org/BlogPosting">
                 <div className="post-body entry-content" id="post-body-5393435426553883135" itemProp="description articleBody">
 
                      <div className="media-box image">
                         <div className="overlay-img"></div>
-                        <Link to="#" className="post-url"></Link>
+                        <Link to={"/gallery/"+data.id} className="post-url"></Link>
                         <img className="image" src="http://4.bp.blogspot.com/-TPrTQfHEaNw/VW_UfIuOC6I/AAAAAAAAFko/d-Iut3BR_HE/s800/dawki-35346456.jpg" />
                         
                     </div>
                     <div className="content" style={{textAlign: "initial"}}>
                         <div className="post-title-box item-title">
-                            <h2><Link to="#">{data.title}</Link></h2>
+                            <h2><Link to={"/gallery/"+data.id}>{data.title}</Link></h2>
+                        </div>
+                        <div className="post-meta"></div>
+                        <div className="post-summary">
+                            {data.summary}
                         </div>
                     </div>
 
