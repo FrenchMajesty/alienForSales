@@ -26,13 +26,13 @@ export default (
                 <Route path="/gallery(/:id)" component={GallerySingleView} />
             </Route>
             <Route path="/admin" component={Admin}>
-                <Route path="/admin/index" component={Dashboard} />
-                <Route path="/admin/login" component={Login} />
+                <IndexRoute component={Dashboard} />
                 <Route path="/admin/gallery" component={EditGallery} />
                 <Route path="/admin/gallery/add" component={AddGallery} />
                 <Route path="/admin/blogs" component={BlogList} />
                 <Route path="/admin/blogs/add" component={AddBlog} />
                 <Route path="/admin/log" component={Changelog} />
             </Route>
+            <Route path="/admin/login" component={Login} />
         </Route>
 )

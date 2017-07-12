@@ -50,3 +50,6 @@ button{
 .wow {
     visibility: hidden;
 }
+.align-right {
+    float: right;
+}
