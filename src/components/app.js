@@ -6,7 +6,8 @@ export default class App extends Component {
 
     
     componentWillMount() {
-        injectTapEventPlugin()   
+        injectTapEventPlugin()
+        new WOW().init()
     }
     
     render() {

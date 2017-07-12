@@ -5,7 +5,6 @@ import ColumnContainer from '~/components/Container/ColumnContainer'
 
 const AboutMe = (props) => {
     
-        new WOW().init()
         return (
             <PageWrapper>
                 <div className="main-outer">
