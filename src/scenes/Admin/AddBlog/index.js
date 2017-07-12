@@ -8,7 +8,7 @@ import TextInput from '../components/Form/TextInput'
 import TextArea from '../components/Form/TextArea'
 import Button from '../components/Button'
 import WYSIWYG from '../components/WYSIWYG'
-import { displayPanelErrors } from '~/services/Helper'
+import { displayErrors } from '~/services/Helper'
 
 
 class AddBlog extends Component {
@@ -77,9 +77,7 @@ class AddBlog extends Component {
                             </div>
                         
                             <div className="row">
-                                <WYSIWYG
-                                    name="article"
-                                    content={article}
+                                <WYSIWYG name="article" content={article}
                                     onChange={(e) => this.setState({article: e.target.getContent()})}
                                 />
                             </div><br/>
@@ -93,7 +91,7 @@ class AddBlog extends Component {
                             {error.length > 0 &&
                                 <div className="row"><br/>
                                     <div className="alert alert-danger"><ul>
-                                        {displayPanelErrors(error)}
+                                        {displayErrors(error)}
                                     </ul></div>
                                 </div>}
                         </form>

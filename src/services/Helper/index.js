@@ -15,6 +15,6 @@ module.exports.formatDate = (date) => {
 * @param {Array} Errors
 * @return {JSXElement} List
 */
-module.exports.displayPanelErrors = (errors) => {
+module.exports.displayErrors = (errors) => {
     return(errors.map((err, i) => { return <li key={i}>{err}</li> }))
 }
