@@ -8,6 +8,7 @@ import TextInput from '../components/Form/TextInput'
 import TextArea from '../components/Form/TextArea'
 import Button from '../components/Button'
 import WYSIWYG from '../components/WYSIWYG'
+import { displayPanelErrors } from '~/services/Helper'
 
 
 class AddBlog extends Component {
@@ -17,35 +18,24 @@ class AddBlog extends Component {
         
         this.state = this.getInitialState()
         this.handleInputChange = this.handleInputChange.bind(this)
-        this.handleSubmitForm = this.handleSubmitForm.bind(this)
-        this.displayErrors = this.displayErrors.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
     
     getInitialState() {
         return {
             title: '',
             article: '<p>Enter your article here.</p>',
-            complete: false,
             error: []
         }
     }
     
-    displayErrors() {
-        const {error} = this.state
-        return(error.map((err, i) => { return <li key={i}>{err}</li> }))
-    }
-    
     handleInputChange(e) {
         const {value, name} = e.target
-        this.setState({[name]: value})
         
-        if(this.state.title && this.state.article)
-            this.setState({complete: true})
-        else
-            this.setState({complete: false})
+        this.setState({[name]: value, error: []})
     }
     
-    handleSubmitForm(e) {
+    handleSubmit(e) {
         const {title, article} = this.state
         let error = []
         
@@ -61,6 +51,9 @@ class AddBlog extends Component {
         if(error.length > 0) {
             this.setState({error})
         }else {
+            const formData = { ...this.state}
+            
+            // API CALL
             console.log('form is good for submit!')
             this.setState(this.getInitialState())
         }
@@ -68,11 +61,10 @@ class AddBlog extends Component {
     
     render() {
         const {title, article, complete, error} = this.state
-        console.log(this.state)
         return ( 
                 <section className="content">
                     <CardContainer title="Add new article" size="col-lg-12">
-                        
+                            <form onSubmit={this.handleSubmit}>
                             <div className="row clearfix">
                                 <TextInput
                                     placeholder="Title"
@@ -94,20 +86,17 @@ class AddBlog extends Component {
                         
                         <div className="row">
                             <div className="text-center">
-                                <Button type="submit" className="btn-success btn-lg" title="Add" icon="add_box" 
-                                    disabled={!complete} onClick={this.handleSubmitForm}
-                                
-                                />
+                                <Button type="submit" className="btn-success btn-lg" title="Add" icon="add_box" />
                             </div>
                         </div>
             
                             {error.length > 0 &&
                                 <div className="row"><br/>
                                     <div className="alert alert-danger"><ul>
-                                        {this.displayErrors()}
+                                        {displayPanelErrors(error)}
                                     </ul></div>
                                 </div>}
-                        
+                        </form>
                     </CardContainer>  
                 </section>
         )
