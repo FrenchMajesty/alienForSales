@@ -1,13 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-const StatBox = (props) => {
+const InfoBox = ({color, title, icon, animation, type, value}) => {
     
-    const {title, icon, value} = props
-    const color = props.color || 'bg-orange'
+    const col = color || 'bg-orange'
+    const effect = animation || 'hover-expand-effect'
+    const boxStyle = type || 'info-box'
     return (
         <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div className={"info-box hover-expand-effect "+color}>
+                    <div className={`${boxStyle} ${col} ${effect}`}>
                         <div className="icon">
                             <i className="material-icons">{icon}</i>
                         </div>
@@ -20,4 +21,4 @@ const StatBox = (props) => {
     )
 }
 
-export default StatBox
+export default InfoBox

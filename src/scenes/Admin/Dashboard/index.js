@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import StatBox from './components/StatBox'
+import InfoBox from './components/InfoBox'
 import SideNavigation from '../components/SideNavigation'
 import TopNavBar from '../components/TopNavBar'
 import Table from '../components/Table'
@@ -26,28 +26,29 @@ class Dashboard extends Component {
             
             <div className="row clearfix">
                 
-                <StatBox
+                <InfoBox
+                    type="info-box-4"
                     title="Product Inventory"
                     color="bg-pink"
                     icon="playlist_add_check"
                     value="14"
                 />
                 
-                <StatBox
+                <InfoBox
                     title="Online revenue"
                     color="bg-light-green"
                     icon="attach_money"
                     value="$200.50"
                 />
                 
-                <StatBox
+                <InfoBox
                     title="Newsletter fan"
                     color="bg-cyan"
                     icon="people"
                     value="1287"
                 />
                 
-                <StatBox
+                <InfoBox
                     title="New Visitors"
                     color="bg-orange"
                     icon="public"
