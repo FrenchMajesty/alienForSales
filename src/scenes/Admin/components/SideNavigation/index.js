@@ -1,9 +1,19 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
+import IconButton from 'material-ui/IconButton'
+import IconMenu from 'material-ui/IconMenu'
+import MenuItem from 'material-ui/MenuItem'
+import FontIcon from 'material-ui/FontIcon'
+import { List, ListItem } from 'material-ui/List'
+import Subheader from 'material-ui/Subheader'
+import ContentDrafts from 'material-ui/svg-icons/content/drafts'
+import { grey50 } from 'material-ui/styles/colors'
 
-const SideNavigation = (props) => {
+const SideNavigation = ({user, active}) => {    
     
-    const {user, active} = props
+    const calculateHeight = () => {
+        return ($(window).height() - ($('.legal').outerHeight() + $('.user-info').outerHeight() + $('.navbar').outerHeight()));
+    }
     return (
     
         <aside id="leftsidebar" className="sidebar">
@@ -16,19 +26,57 @@ const SideNavigation = (props) => {
                     <div className="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{user.name}</div>
                     <div className="email">{user.email}</div>
                     <div className="btn-group user-helper-dropdown">
-                        <i className="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
-                        <ul className="dropdown-menu pull-right">
-                            <li><Link to="javascript:void(0);"><i className="material-icons">person</i>Profile</Link></li>
-                            <li role="seperator" className="divider"></li>
-                            <li><Link to="javascript:void(0);"><i className="material-icons">input</i>Sign Out</Link></li>
-                        </ul>
+                        <IconMenu
+                            iconButtonElement={<IconButton>
+                            <FontIcon className="material-icons" color={grey50}>keyboard_arrow_down</FontIcon></IconButton>}
+                            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                        >
+                            <MenuItem linkButton containerElement={<Link to={active} />} primaryText="Refresh page" />
+                            <MenuItem linkButton containerElement={<Link to="/admin/logout" />} primaryText="Logout" />
+                        </IconMenu>
                     </div>
                 </div>
-            </div>
-            
+            </div> 
             
             <div className="menu">
-                <ul className="list">
+                 <List style={{overflow: "scroll", height: calculateHeight()}}>
+                    <Subheader>Main Navigation</Subheader>
+                    
+                        <ListItem 
+                            key={1} className={active == "/admin/" ? "active" : ""} primaryText="Home"
+                            linkButton containerElement={<Link to="/admin/" />} 
+                            leftIcon={<FontIcon className="material-icons inherit">home</FontIcon>}
+                        />
+                        <ListItem
+                            key={2} className={active.search(/^\/admin\/gallery/) != -1 ? "active" : ""} primaryText="Gallery"  primaryTogglesNestedList={true}
+                            leftIcon={<FontIcon className="material-icons inherit">collections</FontIcon>}
+                            nestedItems={[
+                                <ListItem linkButton containerElement={<Link to="/admin/gallery/" />} key={1} primaryText="Edit gallery" />,
+                                 <ListItem linkButton containerElement={<Link to="/admin/gallery/add" />} key={2} primaryText="Add to gallery" />
+                            ]}
+                        />
+                         <ListItem
+                            key={3} className={active.search(/^\/admin\/blogs/) != -1 ? "active" : ""} primaryText="Blogs"  primaryTogglesNestedList={true}
+                            leftIcon={<FontIcon className="material-icons inherit">content_paste</FontIcon>}
+                            nestedItems={[
+                                <ListItem linkButton containerElement={<Link to="/admin/blogs/" />} key={1} primaryText="See blog posts" />,
+                                 <ListItem linkButton containerElement={<Link to="/admin/blogs/add" />} key={2} primaryText="Add an article" />
+                            ]}
+                        />
+                        <ListItem 
+                            key={4} className={active == "/admin/settings" ? "active" : ""} primaryText="Settings"
+                            linkButton containerElement={<Link to="/admin/settings" />} 
+                            leftIcon={<FontIcon className="material-icons inherit">settings</FontIcon>}
+                        />
+                        <ListItem 
+                            key={5} className={active == "/admin/log" ? "active" : ""} primaryText="Changelogs"
+                            linkButton containerElement={<Link to="/admin/log" />} 
+                            leftIcon={<FontIcon className="material-icons inherit">update</FontIcon>}
+                        />
+                </List>
+                
+                <ul className="list" style={{display: 'none'}}>
                     <li className="header">MAIN NAVIGATION</li>
                     <li className={active == "/admin/" ? "active" : ""}>
                         <Link to="/admin/">
@@ -83,13 +131,12 @@ const SideNavigation = (props) => {
             
             <div className="legal">
                 <div className="copyright">
-                    &copy; 2016 - {new Date().getFullYear()} <Link to="javascript:void(0);">AdminBSB - Material Design</Link>.
+                    &copy; 2016 - {new Date().getFullYear()} <Link>AdminBSB - Material Design</Link>.
                 </div>
                 <div className="version">
                     <b>Version: </b> 1.0.5
                 </div>
             </div>
-            
         </aside>
         )
 }
