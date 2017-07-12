@@ -15,6 +15,7 @@ class Home extends Component {
     render() {
 
         const data = {
+            id: 20,
             title: "Forests And Its Mesmerizing View",
             summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non ex venenatis, egestas est vitae, lacinia libero. Sed pretium aliquet...",
             tags: ["story", "label"],
@@ -23,13 +24,6 @@ class Home extends Component {
         }
 
         const author = "Barrack Obama"
-        const tags = ["story", "label", "alien", "jesus","angel","love"]
-        const minList = [
-            {title: "Forests And Its Mesmerizing View", date: "05/30/2016"},
-            {title: "A Million and One Stars", date: "04/30/2014"},
-            {title: "The Cherish Among the Pears", date: "06/23/2017"}
-        ]
-
 
         return (
             <PageWrapper>
@@ -43,6 +37,7 @@ class Home extends Component {
             <ColumnContainer type="center">
                 <div className="blog-posts hfeed">
                     <BlogEntry data={data} author={author} />
+                    <BlogEntry data={data} author={author} />
                 </div>
                     <Pager />
                     <div className="blog-feeds">
@@ -54,7 +49,7 @@ class Home extends Component {
 
             <ColumnContainer type="right">
                     <SideBarWidget title="About me">
-                        <Link to="#">
+                        <Link to="/about">
                             <img alt="My Photo" className="profile-img" height="80" src="//1.bp.blogspot.com/-mUS184Gu0I4/TWe0BAeXs0I/AAAAAAAAAAg/_GJt0S5xClo/s80/IMG3386A.jpg" width="60" />
                         </Link>
                         <dl className="profile-datablock">
@@ -65,7 +60,7 @@ class Home extends Component {
                             </dt>
                             <dd className="profile-textblock">A passionate programmer, web developer and designer. Ready to learn anything new..</dd>
                         </dl>
-                        <Link to="#" className="profile-link" rel="author" style={{textAlign: "center"}}>
+                        <Link to="/about" className="profile-link" rel="author" style={{textAlign: "center"}}>
                             View my complete profile
                         </Link>
                     </SideBarWidget>

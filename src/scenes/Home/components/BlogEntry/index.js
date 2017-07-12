@@ -71,16 +71,16 @@ class BlogEntry extends Component {
                 <div className="post hentry" itemProp="blogPost" itemScope="itemscope" itemType="http://schema.org/BlogPosting">
                 <div className="post-body entry-content" id="post-body-5393435426553883135" itemProp="description articleBody">
 
-                     <div className="media-box image">
+                    <div className="media-box image">
                         <div className="overlay-img"></div>
-                        <Link to="#" className="post-url"></Link>
+                        <Link to={"/gallery/"+data.id} className="post-url"></Link>
                         <img className="image" src="http://4.bp.blogspot.com/-TPrTQfHEaNw/VW_UfIuOC6I/AAAAAAAAFko/d-Iut3BR_HE/s800/dawki-35346456.jpg" />
                         {this.socialButtons()}
                     </div>
                     <div className="content" style={{textAlign: "initial"}}>
                         <div className="post-title-box">
                             <h2>
-                                <Link to="#">{data.title}</Link>
+                                <Link to={"/gallery/"+data.id}>{data.title}</Link>
                             </h2>
                         </div>
                         <div className="post-meta"></div>
@@ -88,7 +88,7 @@ class BlogEntry extends Component {
                             {data.summary}
                         </div>
                         <div className="read-more">
-                            <Link to="#"><span>Read More</span></Link>
+                            <Link to={"/gallery/"+data.id}><span>Read More</span></Link>
                         </div>
                     </div>
 

@@ -30,14 +30,14 @@ const SideNavigation = (props) => {
             <div className="menu">
                 <ul className="list">
                     <li className="header">MAIN NAVIGATION</li>
-                    <li className={active == "/admin/index" ? "active" : ""}>
-                        <Link to="/admin/index">
+                    <li className={active == "/admin/" ? "active" : ""}>
+                        <Link to="/admin/">
                             <i className="material-icons">home</i>
                             <span>Home</span>
                         </Link>
                     </li>
                     <li className={active.search(/^\/admin\/gallery/) != -1 ? "active" : ""}>
-                        <Link to="javascript:void(0);" className="menu-toggle">
+                        <Link className="menu-toggle">
                             <i className="material-icons">collections</i>
                             <span>Gallery</span>
                         </Link>
@@ -51,7 +51,7 @@ const SideNavigation = (props) => {
                         </ul>
                     </li>
                     <li className={active.search(/^\/admin\/blogs/) != -1 ? "active" : ""}>
-                        <Link to="javascript:void(0);" className="menu-toggle">
+                        <Link className="menu-toggle">
                             <i className="material-icons">content_paste</i>
                             <span>Blog</span>
                         </Link>
