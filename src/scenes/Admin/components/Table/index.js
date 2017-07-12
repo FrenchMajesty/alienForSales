@@ -1,25 +1,27 @@
 import React from 'react'
 import { Link } from 'react-router'
+import IconMenu from 'material-ui/IconMenu'
+import IconButton from 'material-ui/IconButton'
+import FontIcon from 'material-ui/FontIcon'
 
-const Table = ({children, size, title, tableStyle}) => {
+const Table = ({children, size, title, tableStyle, animation, dropdown}) => {
     
+    const animate = animation || ''
     return (
                 <div className={"col-xs-12 col-sm-12 col-md-8 "+size}>
-                    <div className="card">
+                    <div className={`card wow ${animate}`}>
                         <div className="header">
                             <h2>{title.toUpperCase()}</h2>
-                            <ul className="header-dropdown m-r--5">
-                                <li className="dropdown">
-                                    <Link to="javascript:void(0);" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i className="material-icons">more_vert</i>
-                                    </Link>
-                                    <ul className="dropdown-menu pull-right">
-                                        <li><Link to="javascript:void(0);">Action</Link></li>
-                                        <li><Link to="javascript:void(0);">Another action</Link></li>
-                                        <li><Link to="javascript:void(0);">Something else here</Link></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            {dropdown && <IconMenu
+                                className="header-dropdown m-r--5"
+                                iconButtonElement={<IconButton>
+                                <FontIcon className="material-icons">more_vert</FontIcon></IconButton>}
+                                anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                                targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                                style={{top: '5px', position: 'absolute'}}
+                            >
+                                {dropdown}
+                            </IconMenu>}
                         </div>
                         <div className="body">
                             <div className="table-responsive">
