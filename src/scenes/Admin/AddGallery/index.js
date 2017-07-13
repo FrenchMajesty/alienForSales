@@ -6,8 +6,11 @@ import CardContainer from '../components/CardContainer'
 import PageLoader from '../components/PageLoader'
 import TextInput from '../components/Form/TextInput'
 import TextArea from '../components/Form/TextArea'
+import Dropzone from 'react-dropzone'
+import request from 'superagent'
 import Button from '../components/Button'
-import { displayPanelErrors } from '~/services/Helper'
+import { displayErrors } from '~/services/Helper'
+import { uploadImage } from '~/services/api'
 
 
 class AddGallery extends Component {
@@ -18,10 +21,10 @@ class AddGallery extends Component {
         this.state = this.getInitialState()
         
         this.onInputChange = this.onInputChange.bind(this)
-        this.formIsValid = this.formIsValid.bind(this)
         this.displayTags = this.displayTags.bind(this)
         this.processTagInputField = this.processTagInputField.bind(this)
         this.addToTag = this.addToTag.bind(this)
+        this.onImageDrop = this.onImageDrop.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
     
@@ -33,6 +36,7 @@ class AddGallery extends Component {
             description: '',
             tags: [],
             inputTag: '',
+            uploadedFileUrl: '',
             error: []
         }
     }
@@ -79,6 +83,16 @@ class AddGallery extends Component {
         this.setState({[name]: value, error: []})
     }
     
+    onImageDrop(files) {
+        
+        uploadImage(files[0], (err, response) => {    
+            if(err)
+                this.setState({error: [err]})
+            else
+                this.setState({uploadedFileUrl: response.body.secure_url})
+        })
+    }
+
     handleSubmit(e) {
         e.preventDefault()
         
@@ -103,6 +117,9 @@ class AddGallery extends Component {
         if(description.length < 10)
             error.push('Description is too short. Must be at least 10 characters.')
         
+        if(uploadFileUrl.length == 0)
+            error.push('There is no image. Please select an image for your gallery item.')
+        
         if(error.length > 0)
             this.setState({error})
         else {
@@ -116,24 +133,32 @@ class AddGallery extends Component {
     }
     
     render() {
-        console.log(this.state)
-        const {inputTag, title, price, quantity, description, tags, image, error} = this.state
+        const {inputTag, title, price, quantity, description,
+               uploadedFileUrl, tags, image, error} = this.state
         return (
                 <section className="content">
                     <CardContainer title="Upload an Item" size="col-lg-12" smallPrint="Must use dropzonejs.com">
                             <form action="/" id="frmFileUpload" method="post" encType="multipart/form-data" onSubmit={this.handleSubmit}>
-                                <section className="dropzone">
+                                <Dropzone
+                                    className="drop-zone"
+                                    multiple={false}
+                                    accept="image/*"
+                                    onDrop={this.onImageDrop}
+                                >
                                     <div className="dz-message">
                                         <div className="drag-icon-cph">
                                             <i className="material-icons">touch_app</i>
                                         </div>
-                                        <h3>Drop files here or click to upload.</h3>
-                                        <em>(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</em>
+                                        <h3>Drop image here or click to upload.</h3>
                                     </div>
                                     <div className="fallback">
-                                        <input name="file" type="file" multiple />
+                                       
                                     </div>
-                                </section>
+                                </Dropzone>
+                                {uploadedFileUrl.length > 0 &&
+                                    <Link className="thumbnail art">
+                                        <img className="img-responsive" src={uploadedFileUrl} />
+                                    </Link>}
                         <br/>
                             <div className="row clearfix">
                                 <TextInput
@@ -200,7 +225,7 @@ class AddGallery extends Component {
                         </div>
                         <div className="row"><br/>
                         {error.length > 0 &&
-                        <div className="alert alert-danger">{displayPanelErrors(error)}</div>}
+                        <div className="alert alert-danger">{displayErrors(error)}</div>}
                         </div>
                         </form>
                     </CardContainer>  
