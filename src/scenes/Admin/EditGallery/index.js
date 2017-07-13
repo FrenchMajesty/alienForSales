@@ -29,7 +29,7 @@ class EditGallery extends Component {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><Link to="javascript:void(0);" className="thumbnail">
+                                        <td><Link className="thumbnail table-thumbnail">
                                         <img src="http://placehold.it/500x300" className="img-responsive" />
                                     </Link></td>
                                         <td>Car</td>
@@ -37,7 +37,7 @@ class EditGallery extends Component {
                                         <td>0</td>
                                     </tr>
                                     <tr>
-                                        <td><Link to="javascript:void(0);" className="thumbnail">
+                                        <td><Link className="thumbnail table-thumbnail">
                                         <img src="http://placehold.it/500x300" className="img-responsive" />
                                     </Link></td>
                                         <td>Bike</td>
@@ -45,7 +45,7 @@ class EditGallery extends Component {
                                         <td>1</td>
                                     </tr>
                                     <tr>
-                                        <td><Link to="javascript:void(0);" className="thumbnail">
+                                        <td><Link className="thumbnail table-thumbnail">
                                         <img src="http://placehold.it/500x300" className="img-responsive" />
                                     </Link></td>
                                         <td>Plane</td>
@@ -53,7 +53,7 @@ class EditGallery extends Component {
                                         <td>3</td>
                                     </tr>
                                     <tr>
-                                        <td><Link to="javascript:void(0);" className="thumbnail">
+                                        <td><Link className="thumbnail table-thumbnail">
                                         <img src="http://placehold.it/500x300" className="img-responsive" />
                                     </Link></td>
                                         <td>Yacht</td>
@@ -61,7 +61,7 @@ class EditGallery extends Component {
                                         <td>0</td>
                                     </tr>
                                     <tr>
-                                        <td><Link to="javascript:void(0);" className="thumbnail">
+                                        <td><Link className="thumbnail table-thumbnail">
                                         <img src="http://placehold.it/500x300" className="img-responsive" />
                                     </Link></td>
                                         <td>Segway</td>

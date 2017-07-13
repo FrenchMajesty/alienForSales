@@ -7,7 +7,7 @@ Updated by: Blogger Team
 ----------------------------------------------- */
 /* Use this with templates/template-twocol.html */
 :root {
-    --mainColor: #4caed8;
+    --mainColor: #008a21;
 }
 #navbar-iframe{height:0;visibility:hidden;display:none}
 body{background:#fff;color:#999999;font:x-small Georgia Serif;font-size:small;text-align:center;margin:0;
@@ -601,7 +601,7 @@ text-transform:uppercase;
 /* Navigation Bar */
 .navigation {
 position: relative;
-background-color: #0F85B8;
+background-color: #207b02;
 padding:0.4em;
 box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }

@@ -1,6 +1,54 @@
+a {
+    color: inherit;
+}
+.active {
+    color: #F44336 !important;
+}
+.inherit {
+    color: inherit !important;
+}
+.align-right {
+    float: right;
+}
 .bootstrap-tagsinput {
     width: 100%;
 }
 .bootstrap-tagsinput input {
     width: 40%;
+}
+.menu {
+    color: rgb(117, 117, 117);
+}
+.drop-zone {
+    padding: 1em 2em;
+    border-width: 2px;
+    border-color: rgb(102, 102, 102);
+    border-style: dashed;
+    border-radius: 5px;
+    background-color: #eee !important;
+}
+.art {
+    width: 50%;
+    margin: 1em auto;
+}
+.table-thumbnail {
+    width: 30%;
+}
+.remember-me {
+    padding-left: 26px;
+    height: 25px;
+    width: 50%;
+    line-height: 21px;
+    margin-bottom: 5px;
+    font-size: 13px;
+    font-weight: normal;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+}
+.raised {
+    box-shadow:  0 2px 10px rgba(0, 0, 0, 0.2)
+}
+.hidden {
+    display: none;
 }

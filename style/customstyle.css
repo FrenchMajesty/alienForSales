@@ -15,7 +15,7 @@ button{
 .author-name {
     display: block;
     left: 0.5em;
-    color: #4caed8;
+    color: #008a21;
     text-transform: uppercase;
     letter-spacing: 0.3px;
 }
@@ -49,7 +49,4 @@ button{
 }
 .wow {
     visibility: hidden;
-}
-.align-right {
-    float: right;
 }
