@@ -126,7 +126,7 @@ class Login extends Component {
                                 </div>
                                 <div className="row m-t-35 m-b--20">
                                     <div className="col-xs-6 align-right">
-                                        <Link onClick={this.showResetter}>Forgot Password?</Link>
+                                        <Link onTouchTap={this.showResetter}>Forgot Password?</Link>
                                     </div>
                                 </div>
                             </form>
@@ -154,7 +154,7 @@ class Login extends Component {
                     <RaisedButton label="Reset my password" secondary={true} style={{width: '100%'}} type="submit" />
                                     
                     <div className="row m-t-20 m-b--5 align-center">
-                        <FlatButton label="Sign in!" primary={true} onClick={this.showLogin} />
+                        <FlatButton label="Sign in!" primary={true} onTouchTap={this.showLogin} />
                     </div>
                 </form>
                             </CardText>

@@ -48,7 +48,7 @@ class AddGallery extends Component {
         if(tags.length > 0) {
             return(tags.map((tag, i) => {
                 return (<span key={i} className="tag label label-info">{tag}
-                        <span data-role="remove" onClick={() => { this.removeTag(i) }}></span>
+                        <span data-role="remove" onTouchTap={() => { this.removeTag(i) }}></span>
                     </span>)
             }))
         }

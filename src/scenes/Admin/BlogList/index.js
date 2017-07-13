@@ -80,7 +80,7 @@ class BlogList extends Component {
                                         <td>Car</td>
                                         <td>200</td>
                                         <td>0</td>
-                                        <td><IconButton onClick={(e) => this.setState({editingMode: true})}>
+                                        <td><IconButton onTouchTap={(e) => this.setState({editingMode: true})}>
                                             <FontIcon className="material-icons">create</FontIcon>
                                         </IconButton></td>
                                     </tr>
