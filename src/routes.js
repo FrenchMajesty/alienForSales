@@ -15,6 +15,7 @@ import AddGallery from './scenes/Admin/AddGallery'
 import AddBlog from './scenes/Admin/AddBlog'
 import BlogList from './scenes/Admin/BlogList'
 import Changelog from './scenes/Admin/Changelog'
+import Settings from './scenes/Admin/Settings'
 
 
 export default (
@@ -32,6 +33,7 @@ export default (
                 <Route path="/admin/blogs" component={BlogList} />
                 <Route path="/admin/blogs/add" component={AddBlog} />
                 <Route path="/admin/log" component={Changelog} />
+                <Route path="/admin/settings" component={Settings} />
             </Route>
             <Route path="/admin/login" component={Login} />
         </Route>
