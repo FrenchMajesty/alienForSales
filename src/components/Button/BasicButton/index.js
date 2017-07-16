@@ -1,26 +1,36 @@
 import React from 'react'
 import {Link} from 'react-router'
+import FlatButton from 'material-ui/FlatButton'
+import FontIcon from 'material-ui/FontIcon'
 
-const BasicButton = (props) => {
+const BasicButton = ({className,disabled, target, color, title, icon, id, onClick}) => {
     
-    const {target,color, title, icon, className, id} = props
     const bgCol = color ? {backgroundColor: color} : {}
-    
     const disabler = className ? {disabled: "true"} : {to: target}
     
-    return (
-    <Link
-        className={"home-link basic-button " + className}
+
+   return (
+       <button className={"home-link basic-button " + className}
         style={{overflow: "hidden"}, bgCol}
         id={id}
-        {...disabler}
-    >
-        <span className="ink pressed animatedR"> </span>
-        {icon &&
-            <i className="material-icons">{icon}</i>}
-            {props.title}
-    </Link>
-    )
+        onTouchTap={onClick}
+        >
+       {title}
+       </button>
+   )
+   /*(
+       <Link
+            className={"home-link basic-button " + className}
+            style={{overflow: "hidden"}, bgCol}
+            id={id}
+            {...disabler}
+        >
+            <span className="ink pressed animatedR"> </span>
+            {icon &&
+                <i className="material-icons">{icon}</i>}
+                {title}
+        </Link>)*/
+    
 }
 
 export default BasicButton
