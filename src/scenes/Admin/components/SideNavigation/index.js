@@ -37,6 +37,11 @@ class SideNavigation extends Component {
         return ($(window).height() - ($('.legal').outerHeight() + $('.user-info').outerHeight() + $('.navbar').outerHeight()));
     }
     
+    handleLogout(e) {
+        
+        // API CALLS then redirect
+    }
+    
     renderLogs() {
         const {logs} = this.state
         
@@ -74,7 +79,7 @@ class SideNavigation extends Component {
                                 targetOrigin={{horizontal: 'right', vertical: 'top'}}
                             >
                                 <MenuItem linkButton containerElement={<Link to={active} />} primaryText="Refresh page" />
-                                <MenuItem linkButton containerElement={<Link to="/admin/logout" />} primaryText="Logout" />
+                                <MenuItem onTouchTap={this.handleLogout} primaryText="Logout" />
                             </IconMenu>
                         </div>
                     </div>
