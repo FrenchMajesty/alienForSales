@@ -9,8 +9,8 @@ const GalleryItem = ({data, author, animation}) => {
             <div className="post-footer item-footer" style={{textAlign: "initial"}}>
                 <div className="post-footer-line post-footer-line-1">
                     <span className="post-author vcard">By {author}</span>
-                    <span className="post-comment-link">{data.stock} left in stock!</span>
-                    <RoundActionButton icon={"attach_money"} title={data.stock+" left in stock!"} />
+                    <span className="post-comment-link">{data.quantity} left in stock!</span>
+                    <RoundActionButton icon={"attach_money"} title={data.quantity+" left in stock!"} />
                     <div className="post-share-buttons goog-inline-block"></div>
                 </div>
                 
@@ -23,7 +23,7 @@ const GalleryItem = ({data, author, animation}) => {
             <div className="date-header item-date">
                 <span className="out">
                     <i className="fa fa-fw fa-calendar"></i>
-                    <span className="dte">{formatDate(data.date)}</span>
+                    <span className="dte">{formatDate(data.date_posted)}</span>
                 </span>
             </div>
         )
@@ -48,7 +48,7 @@ const GalleryItem = ({data, author, animation}) => {
                      <div className="media-box image">
                         <div className="overlay-img"></div>
                         <Link to={"/gallery/"+data.id} className="post-url"></Link>
-                        <img className="image" src="http://4.bp.blogspot.com/-TPrTQfHEaNw/VW_UfIuOC6I/AAAAAAAAFko/d-Iut3BR_HE/s800/dawki-35346456.jpg" />
+                        <img className="image" src={data.image} />
                         
                     </div>
                     <div className="content" style={{textAlign: "initial"}}>
@@ -57,7 +57,7 @@ const GalleryItem = ({data, author, animation}) => {
                         </div>
                         <div className="post-meta"></div>
                         <div className="post-summary">
-                            {data.summary}
+                            {data.description}
                         </div>
                     </div>
 

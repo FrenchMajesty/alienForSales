@@ -1,17 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router'
 import { formatDate } from '~/services/Helper'
 
-class BlogEntry extends Component {
+const BlogEntry = ({data, author}) => {
 
-    constructor(props) {
-        super(props)
-
-        this.renderHead.bind(this)
-        this.renderFooter.bind(this)
-    }
-
-    socialButtons() {
+    
+    const type = data.price ? 'gallery' : 'blog'
+    
+    const socialButtons = () => {
         return (
             <div className="social-share-circles">
             <Link to="#" title="Share on Facebook" className="sc-circle fb anim-1">   <i className="fa fa-facebook"></i> </Link>
@@ -22,73 +18,74 @@ class BlogEntry extends Component {
         )
     }
 
-    renderHead() {
-        const {data} = this.props
+    const renderHead = () => {
         return (
             <div className="date-header">
                 <span className="out">
                     <i className="fa fa-fw fa-calendar"></i>
-                    <span className="dte">{formatDate(data.date)}</span>
+                    <span className="dte">{formatDate(data.date_posted)}</span>
                 </span>
             </div>
         )
     }
-
-    renderFooter() {
-        const {data, author} = this.props
+    
+    const renderFooter = () => {
         return(
             <div className="post-footer" style={{textAlign: "initial"}}>
                 <div className="post-footer-line post-footer-line-1">
                     <span className="post-author vcard"> Posted by {author}</span>
                     <span className="post-comment-link">
-                            {data.stock &&
-                                <Link to="#buy" className="comment-link"> {data.stock} left in stock! </Link>}
+                            {data.quantity &&
+                                <Link to={type+"/"+data.id} className="comment-link"> {data.quantity} left in stock! </Link>}
                     </span>
                     <div className="post-share-buttons goog-inline-block"></div>
                 </div>
 
+                {type == 'gallery' &&
                 <div className="post-footer-line post-footer-line-2">
                     <span className="post-labels">Labels:
-                        {data.tags.map((tag, i) => {
+                        {data.tags.split(',').map((tag, i) => {
                             const comma = (i != 0) ? ', ' : ''
                             return (<sect key={i}><i>{comma}</i><Link to="#" rel="tag">{tag}</Link></sect>)
                         })}
                     </span>
-                </div>
+                </div>}
             </div>
         )
     }
-
-    render() {
-        const {data} = this.props
+    
+    const summary = data.description || data.article
+    // *Fix summary.length
         return (
             <div className="date-outer">
 
-                {this.renderHead()}
+                {renderHead()}
 
                 <div className="date-posts">
                 <div className="post-outer summarized wow fadeInLeft">
                 <div className="post hentry" itemProp="blogPost" itemScope="itemscope" itemType="http://schema.org/BlogPosting">
                 <div className="post-body entry-content" id="post-body-5393435426553883135" itemProp="description articleBody">
 
-                    <div className="media-box image">
+                    {type == 'gallery' &&
+                     <div className="media-box image">
                         <div className="overlay-img"></div>
-                        <Link to={"/gallery/"+data.id} className="post-url"></Link>
-                        <img className="image" src="http://4.bp.blogspot.com/-TPrTQfHEaNw/VW_UfIuOC6I/AAAAAAAAFko/d-Iut3BR_HE/s800/dawki-35346456.jpg" />
-                        {this.socialButtons()}
-                    </div>
+                        <Link to={type+"/"+data.id} className="post-url"></Link>
+                        <img className="image" src={data.image} />
+                        {socialButtons()}
+                    </div>}
                     <div className="content" style={{textAlign: "initial"}}>
                         <div className="post-title-box">
                             <h2>
-                                <Link to={"/gallery/"+data.id}>{data.title}</Link>
+                                <Link to={type+"/"+data.id}>{data.title}</Link>
                             </h2>
                         </div>
                         <div className="post-meta"></div>
                         <div className="post-summary">
-                            {data.summary}
+                            {(10 >= 140 && (summary.slice(0,140)+'...')) ||
+                              summary}
                         </div>
                         <div className="read-more">
-                            <Link to={"/gallery/"+data.id}><span>Read More</span></Link>
+                            <Link to={type+"/"+data.id}><span>Read More</span></Link>
                         </div>
                     </div>
 
@@ -99,7 +96,7 @@ class BlogEntry extends Component {
 
                     </div>
 
-                    {this.renderFooter()}
+                    {renderFooter()}
 
                 </div>
                 </div>
@@ -107,7 +104,6 @@ class BlogEntry extends Component {
 
             </div>
         )
-    }
 }
 
 export default BlogEntry

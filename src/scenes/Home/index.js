@@ -5,26 +5,77 @@ import PageWrapper from '~/components/Container/PageWrapper'
 import SideBarWidget from '~/components/SideBarWidget'
 import ColumnContainer from '~/components/Container/ColumnContainer'
 import Pager from '~/components/Container/ColumnContainer/Pager'
+import { loadFeed } from '~/services/api'
 
 class Home extends Component {
     
-    componentDidMount() {
-        new WOW().init()
-    }
-
-    render() {
-
-        const data = {
-            id: 20,
-            title: "Forests And Its Mesmerizing View",
-            summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non ex venenatis, egestas est vitae, lacinia libero. Sed pretium aliquet...",
-            tags: ["story", "label"],
-            date: "05/30/2015",
-            stock: 10
+    constructor(props) {
+        super(props)
+        
+        this.state = {
+            posts: [],
+            limits: [0, 5],
+            size: 5
         }
-
+        
+        this.renderPosts = this.renderPosts.bind(this)
+        this.processNewerPage = this.processNewerPage.bind(this)
+        this.processOlderPage = this.processOlderPage.bind(this)
+    }
+    
+    componentWillMount() {
+        this.updatePostFeed(this.state.limits, posts => {
+            this.setState({posts})
+        })
+    }
+    
+    componentDidMount() {
+        new WOW().init()  
+    }
+    
+    updatePostFeed(limits, callback) {
+        
+        loadFeed(limits[0],limits[1],response => callback(response))
+    }
+    
+    
+    processNewerPage() {
+        const {limits, size} = this.state
+        const lim = [limits[0]-size, limits[1]-size]
+        
+        this.updatePostFeed(lim, response => {
+            this.setState({
+                limits: lim,
+                posts: response
+            })
+        })
+    }
+    
+    processOlderPage() {
+        const {limits, size} = this.state
+        const lim = [limits[0]+size, limits[1]+size]
+        
+         this.updatePostFeed(lim, response => {
+            this.setState({
+                limits: lim,
+                posts: response
+            })
+        })
+    }
+    
+    
+    renderPosts() {
+        const {posts} = this.state
         const author = "Barrack Obama"
-
+        
+        return(posts.map((post, i) => { 
+            if( i < posts.length-1) // last entry is count
+            return (<BlogEntry key={i} data={post} author={author} />) 
+        }))
+    }
+    
+    render() {
+        const {limits, posts} = this.state
         return (
             <PageWrapper>
 
@@ -36,10 +87,11 @@ class Home extends Component {
 
             <ColumnContainer type="center">
                 <div className="blog-posts hfeed">
-                    <BlogEntry data={data} author={author} />
-                    <BlogEntry data={data} author={author} />
+                    {this.renderPosts()}
                 </div>
-                    <Pager />
+                    <Pager current={limits} max={posts[posts.length-1]}
+                        moveForward={this.processNewerPage}
+                        moveBackward={this.processOlderPage}/>
                     <div className="blog-feeds">
                         <div className="feed-links">
                             Click here to: <Link to="#" className="feed-link" target="_blank">Subscribe to my blog</Link>

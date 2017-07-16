@@ -7,38 +7,82 @@ import GalleryGrid from './components/GalleryGrid'
 import GalleryItem from './components/GalleryItem'
 import Pager from '~/components/Container/ColumnContainer/Pager'
 import SearchBar from './components/SearchBar'
+import { loadGalleryFeed } from '~/services/api'
 
 class Gallery extends Component {
     
+    constructor(props) {
+        super(props)
+        
+        this.state = this.getInitialState()
+    }
+        
+    getInitialState() {
+        return {
+            limits: [0,5],
+            size: 5,
+            gallery: []
+        }
+    }
+    
+    componentWillMount() {
+        this.loadGalleryFeed(this.state.limits,feed => {
+            this.setState({gallery: feed})
+        })
+    }
+    
     componentDidMount() {
         new WOW().init()
+    }
+        
+    loadGalleryFeed(limits, callback) {
+        loadGalleryFeed(limits[0], limits[1], gallery => {
+            this.setState({gallery})
+        })   
     }
     
     searchGallery(query) {
         
     }
     
-    renderGallery() {
-        const author = "Bob Marley"
-        const gal = {
-            id: 20,
-            title: "Mona Lisa",
-            summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non ex venenatis, egestas est vitae, lacinia libero. Sed pretium aliquet.",
-            price: 300.5,
-            date: "05/23/2017",
-            stock: 17
-    
-        }
+    moveForward() {
+        const {limits, size} = this.state
+        const lim = [limits[0]-size, limits[1]-size]
         
-        return (
-            <div>
-                {_.times(9, i => <GalleryItem data={gal} author={author} animation="zoomInDown" />)}
-            </div>
-        )
+        this.loadGalleryFeed(lim, feed => {
+            this.setState({
+                limits: lim,
+                gallery: feed
+            })
+        })
+    }
+    
+    moveBackward() {
+        const {limits, size} = this.state
+        const lim = [limits[0]+size, limits[1]+size]
+        
+        this.loadGalleryFeed(lim, feed => {
+            this.setState({
+                limits: lim,
+                gallery: feed
+            })
+        })
+    }
+    
+    renderGallery(gallery) {
+        const author = "Bob Marley"
+        
+        if(gallery.length > 0) {
+            
+            return(gallery.map((item,i) => {
+                if(i < gallery.length-1) // last entry is count
+                return (<GalleryItem key={i} data={item} animate="zoomInDown" author="Jesus Christ" />)
+            }))
+        }
     }
     
     render() {
-
+        const {limits, gallery} = this.state
         return (
             <PageWrapper>
                 <SearchBar placeholder="Search the gallery" onSubmit={this.searchGallery} />
@@ -52,10 +96,12 @@ class Gallery extends Component {
                 <ColumnContainer type="center">
                     <div className="blog-posts hfeed">
                         <GalleryGrid>
-                            {this.renderGallery()}
+                            {this.renderGallery(gallery)}
                         </GalleryGrid>
                     </div>
-                    <Pager />
+                    <Pager current={limits} max={gallery[gallery.length-1]}
+                        moveForward={this.loadNewerPosts}
+                        moveBackward={this.loadOlderPosts} />
                 </ColumnContainer>
 
 
