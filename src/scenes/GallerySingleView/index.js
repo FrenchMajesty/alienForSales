@@ -11,8 +11,7 @@ class GallerySingleViw extends Component {
         super(props)
         
         this.state = {
-            data: {},
-            author: "Barrack Obama"
+            data: {}
         }
     }
     
@@ -32,7 +31,8 @@ class GallerySingleViw extends Component {
     }
     
     render() {
-        const {data, author} = this.state
+        const {data} = this.state
+        const {author} = this.props.route
         return (
             <PageWrapper>
                 <div className="main-outer">

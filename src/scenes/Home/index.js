@@ -66,7 +66,7 @@ class Home extends Component {
     
     renderPosts() {
         const {posts} = this.state
-        const author = "Barrack Obama"
+        const {author} = this.props.route
 
         return(posts.map((post, i) => { 
             if( i < posts.length-1) // last entry is count

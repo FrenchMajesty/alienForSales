@@ -68,13 +68,13 @@ class Gallery extends Component {
     }
     
     renderGallery(gallery) {
-        const author = "Bob Marley"
+        const {author} = this.props.route
         
         if(gallery.length > 0) {
             
             return(gallery.map((item,i) => {
                 if(i < gallery.length-1) // last entry is count
-                return (<GalleryItem key={i} data={item} animate="zoomInDown" author="Jesus Christ" />)
+                return (<GalleryItem key={i} data={item} animate="zoomInDown" author={author} />)
             }))
         }
     }

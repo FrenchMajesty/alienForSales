@@ -17,14 +17,14 @@ import BlogList from './scenes/Admin/BlogList'
 import Changelog from './scenes/Admin/Changelog'
 import Settings from './scenes/Admin/Settings'
 
-
+const author = "Barrack Obama"
 export default (
         <Route path="/" component={App}>
-            <IndexRoute component={Home} />
+            <IndexRoute component={Home} author={author} />
             <Route path="/about" component={AboutMe} />
             <Route path="/gallery">
-                <IndexRoute component={Gallery} />
-                <Route path="/gallery(/:id)" component={GallerySingleView} />
+                <IndexRoute component={Gallery} author={author} />
+                <Route path="/gallery(/:id)" component={GallerySingleView} author={author} />
             </Route>
             <Route path="/admin" component={Admin}>
                 <IndexRoute component={Dashboard} />
