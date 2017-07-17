@@ -10,7 +10,7 @@ import Dropzone from 'react-dropzone'
 import request from 'superagent'
 import Button from '../components/Button'
 import { displayErrors } from '~/services/Helper'
-import { uploadImage } from '~/services/api'
+import { uploadImage, submitPostToGallery, saveToLog } from '~/services/api'
 
 
 class AddGallery extends Component {
@@ -23,6 +23,7 @@ class AddGallery extends Component {
         this.onInputChange = this.onInputChange.bind(this)
         this.displayTags = this.displayTags.bind(this)
         this.processTagInputField = this.processTagInputField.bind(this)
+        this.removeTag = this.removeTag.bind(this)
         this.addToTag = this.addToTag.bind(this)
         this.onImageDrop = this.onImageDrop.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -37,7 +38,8 @@ class AddGallery extends Component {
             tags: [],
             inputTag: '',
             uploadedFileUrl: '',
-            error: []
+            error: [],
+            sucess: ''
         }
     }
     
@@ -80,7 +82,7 @@ class AddGallery extends Component {
     onInputChange(e) {
         const {name, value} = e.target
         
-        this.setState({[name]: value, error: []})
+        this.setState({[name]: value, error: [], success: ''})
     }
     
     onImageDrop(files) {
@@ -96,7 +98,7 @@ class AddGallery extends Component {
     handleSubmit(e) {
         e.preventDefault()
         
-        const {title, price, quantity, description} = this.state
+        const {title, price, quantity, description, tags ,uploadedFileUrl} = this.state
         let error = []
         
         if(!title || !price || !quantity || !description)
@@ -109,7 +111,7 @@ class AddGallery extends Component {
             error.push('Title is too long. Must be less than 120 characters.')
         
         if(isNaN(price) || Number(price) < 1)
-            error.push('Price must be at least $1.00')
+            error.push('Price must be at least $1.00.')
         
         if(isNaN(quantity) || Number(quantity) < 1)
             error.push('Quantity is incorrect. Must be greater than 1.')
@@ -117,24 +119,39 @@ class AddGallery extends Component {
         if(description.length < 10)
             error.push('Description is too short. Must be at least 10 characters.')
         
-        if(uploadFileUrl.length == 0)
+        if(uploadedFileUrl.length == 0)
             error.push('There is no image. Please select an image for your gallery item.')
         
-        if(error.length > 0)
+        if(error.length > 0) {
             this.setState({error})
-        else {
-            const formData = { ...this.state}
-
-            // API CALL
-            console.log('API CALL: add to gallery')
-            console.log(formData)
-            this.setState(this.getInitialState())
+        } else {
+            const formData = {
+                title: title,
+                price: price,
+                quantity: quantity,
+                description: description,
+                image: uploadedFileUrl,
+                tags: tags.join(',')
+            }
+            
+            submitPostToGallery(formData)
+            .then(response => {
+                if(response.data === true) {
+                    this.setState(this.getInitialState())
+                    this.setState({success: 'Item was successfully added.'})
+                    saveToLog(`Item '${title}' was added`, this.props.user)
+                }else if(response.data.error) {
+                    this.setState({error: [response.data.error]})
+                }else {
+                    this.setState({error: ['Unknown error occured while creating gallery item, please try again.']})
+                }
+            })
         }
     }
     
     render() {
         const {inputTag, title, price, quantity, description,
-               uploadedFileUrl, tags, image, error} = this.state
+               uploadedFileUrl, tags, image, error, success} = this.state
         return (
                 <section className="content">
                     <CardContainer title="Upload an Item" size="col-lg-12" smallPrint="Must use dropzonejs.com">
@@ -226,6 +243,8 @@ class AddGallery extends Component {
                         <div className="row"><br/>
                         {error.length > 0 &&
                         <div className="alert alert-danger">{displayErrors(error)}</div>}
+                        {success &&
+                        <div className="alert alert-success">{success}</div>}
                         </div>
                         </form>
                     </CardContainer>  

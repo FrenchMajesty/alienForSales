@@ -6,6 +6,7 @@ import FlatButton from 'material-ui/FlatButton'
 import TextInput from '../components/Form/TextInput'
 import { Card, CardText } from 'material-ui/Card'
 import { displayErrors } from '~/services/Helper'
+import { postLogin } from '~/services/api'
 
 class Login extends Component {
     
@@ -62,13 +63,20 @@ class Login extends Component {
             error.push('Please fill in all required fields.')
             
         if(error.length == 0) {
-            // API CALL
-            console.log('API CALL: Login')
+        
             const formData = {
                 username: username,
                 password: password,
                 rememberMe: rememberMe
             }
+            
+            postLogin(formData)
+            .then(response => {
+                if(!response.data)
+                    this.setState({error: ['Incorrect username or password.']})
+                else
+                    this.props.history.pushState(null, '/admin/')
+            })
         }else {
             this.setState({error})
         }
