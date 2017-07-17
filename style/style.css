@@ -848,9 +848,6 @@ overflow:hidden;
 -ms-transition:0.1s all ease-in-out;
 transition:0.1s all ease-in-out;
 }
-.media-box.image {
-max-height:300px;
-}
 .media-box.image:hover {
 -webkit-filter:brightness(1.1);
 }
