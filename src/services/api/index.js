@@ -22,13 +22,43 @@ export function uploadImage(file, callback){
     })
 }
 
-export function loadFeed(limit, max, callback) {
-    
-    axios.get(`${BASE_URL}/public/fetch/feed/?limit=${limit}&max=${max}`)
-    .then(response => callback(response.data))
+export function loadFeed(limit, max) {
+    return axios.get(`${BASE_URL}/public/fetch/feed/?limit=${limit}&max=${max}`)
 }
 
-export function loadGalleryFeed(limit, max, callback) {
-    axios.get(`${BASE_URL}/public/fetch/gallery/?limit=${limit}&max=${max}`)
-    .then(response => callback(response.data))
+export function loadGalleryFeed(limit, max) {
+    return axios.get(`${BASE_URL}/public/fetch/gallery/?limit=${limit}&max=${max}`)
+}
+
+export function loadGallery(id) {
+    return axios.get(`${BASE_URL}/public/fetch/gallery/${id}`)
+}
+
+export function loadBlog(id) {
+    return axios.get(`${BASE_URL}/public/fetch/articles/${id}`)
+}
+
+export function postLogin(form) {
+    return axios.post(`${BASE_URL}/system/login`, form)
+}
+
+export function verifyAdminAccess() {
+    return axios.get(`${BASE_URL}/system/access`)
+}
+
+export function submitPostToGallery(formData) {
+    return axios.post(`${BASE_URL}/system/post/gallery`, formData)
+}
+
+export function submitPostToBlog(formData) {
+    return axios.post(`${BASE_URL}/system/post/blog`, formData)
+}
+
+
+
+export function saveToLog(message, user) {
+    axios.post(`${BASE_URL}/system/post/log`, {
+        message: message,
+        userid: user
+    })
 }
