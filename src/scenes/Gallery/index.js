@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import _ from 'lodash'
 import PageWrapper from '~/components/Container/PageWrapper'
 import ColumnContainer from '~/components/Container/ColumnContainer'
 import GalleryGrid from './components/GalleryGrid'
@@ -26,19 +25,16 @@ class Gallery extends Component {
     }
     
     componentWillMount() {
-        this.loadGalleryFeed(this.state.limits,feed => {
-            this.setState({gallery: feed})
+        const {limits} = this.state
+        
+        loadGalleryFeed(limits[0],limits[1])
+        .then(response => {
+            this.setState({gallery: response.data})
         })
     }
     
     componentDidMount() {
         new WOW().init()
-    }
-        
-    loadGalleryFeed(limits, callback) {
-        loadGalleryFeed(limits[0], limits[1], gallery => {
-            this.setState({gallery})
-        })   
     }
     
     searchGallery(query) {
@@ -49,10 +45,11 @@ class Gallery extends Component {
         const {limits, size} = this.state
         const lim = [limits[0]-size, limits[1]-size]
         
-        this.loadGalleryFeed(lim, feed => {
+        loadGalleryFeed(lim[0],lim[1])
+        .then(response => {
             this.setState({
                 limits: lim,
-                gallery: feed
+                gallery: response.data
             })
         })
     }
@@ -61,10 +58,11 @@ class Gallery extends Component {
         const {limits, size} = this.state
         const lim = [limits[0]+size, limits[1]+size]
         
-        this.loadGalleryFeed(lim, feed => {
+        loadGalleryFeed(lim[0],lim[1])
+        .then(response => {
             this.setState({
                 limits: lim,
-                gallery: feed
+                gallery: response.data
             })
         })
     }

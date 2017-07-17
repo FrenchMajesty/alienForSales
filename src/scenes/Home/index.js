@@ -14,8 +14,8 @@ class Home extends Component {
         
         this.state = {
             posts: [],
-            limits: [0, 5],
-            size: 5
+            limits: [0, 4],
+            size: 4
         }
         
         this.renderPosts = this.renderPosts.bind(this)
@@ -24,8 +24,11 @@ class Home extends Component {
     }
     
     componentWillMount() {
-        this.updatePostFeed(this.state.limits, posts => {
-            this.setState({posts})
+        const {limits} = this.state
+        
+        loadFeed(limits[0],limits[1])
+        .then(posts => {
+            this.setState({posts: posts.data})
         })
     }
     
@@ -33,20 +36,15 @@ class Home extends Component {
         new WOW().init()  
     }
     
-    updatePostFeed(limits, callback) {
-        
-        loadFeed(limits[0],limits[1],response => callback(response))
-    }
-    
-    
     processNewerPage() {
         const {limits, size} = this.state
         const lim = [limits[0]-size, limits[1]-size]
         
-        this.updatePostFeed(lim, response => {
+        loadFeed(lim[0], lim[1])
+        .then(response => {
             this.setState({
                 limits: lim,
-                posts: response
+                posts: response.data
             })
         })
     }
@@ -55,19 +53,21 @@ class Home extends Component {
         const {limits, size} = this.state
         const lim = [limits[0]+size, limits[1]+size]
         
-         this.updatePostFeed(lim, response => {
+        loadFeed(lim[0], lim[1])
+        .then(response => {
             this.setState({
                 limits: lim,
-                posts: response
+                posts: response.data
             })
+            console.log(lim)
+            console.log(response.data)
         })
     }
-    
     
     renderPosts() {
         const {posts} = this.state
         const author = "Barrack Obama"
-        
+
         return(posts.map((post, i) => { 
             if( i < posts.length-1) // last entry is count
             return (<BlogEntry key={i} data={post} author={author} />) 

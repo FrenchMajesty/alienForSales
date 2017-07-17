@@ -20,27 +20,27 @@ const ItemCard = ({data, author, animation}) => {
             <div className="date-header single-view-date">
                 <span className="out">
                     <i className="fa fa-fw fa-calendar"></i>
-                    <span className="dte">{formatDate(data.date)}</span>
+                    <span className="dte">{formatDate(data.date_posted)}</span>
                 </span>
             </div>
         )
     }
-
+    
     const renderFooter = () => {
         return(
             <div className="post-footer" style={{textAlign: "initial"}}>
                 <div className="post-footer-line post-footer-line-1">
                     <span className="post-author vcard">By {author}</span>
                     <span className="post-comment-link">
-                            {data.stock > 0 &&
-                                <Link to="#buy" className="comment-link"> {data.stock} left in stock! </Link>}
+                            {data.quantity > 0 &&
+                                <Link to="#buy" className="comment-link"> {data.quantity} left in stock! </Link>}
                     </span>
                     <div className="post-share-buttons goog-inline-block"></div>
                 </div>
 
                 <div className="post-footer-line post-footer-line-2">
                     <span className="post-labels">Labels:
-                        {data.tags.map((tag, i) => {
+                        {data.tags && data.tags.split(',').map((tag, i) => {
                             const comma = (i != 0) ? ', ' : ''
                             return (<sect key={i}><i>{comma}</i><Link to="#" rel="tag">{tag}</Link></sect>)
                         })}
@@ -65,7 +65,7 @@ const ItemCard = ({data, author, animation}) => {
                      <div className="media-box image">
                         <div className="overlay-img"></div>
                         <Link to="#" className="post-url"></Link>
-                        <img className="image" src="http://4.bp.blogspot.com/-TPrTQfHEaNw/VW_UfIuOC6I/AAAAAAAAFko/d-Iut3BR_HE/s800/dawki-35346456.jpg" />
+                        <img className="image" src={data.image} />
                         {socialButtons()}
                     </div>
                     <div className="content" style={{textAlign: "initial"}}>
@@ -76,9 +76,9 @@ const ItemCard = ({data, author, animation}) => {
                         </div>
                         <div className="post-meta"></div>
                         <div className="post-summary">
-                            {data.summary}
+                            {data.description}
                         </div><br/>
-                        <center><BasicButton className={!data.stock ? "disabled": ""} target="#" title="Buy now" color="#f15a24"/></center>
+                        <center><BasicButton className={!data.quantity ? "disabled": ""} target="#" title="Buy now" color="#f15a24"/></center>
                        
                     </div>
 
