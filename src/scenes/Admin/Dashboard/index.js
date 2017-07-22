@@ -6,16 +6,27 @@ import TopNavBar from '../components/TopNavBar'
 import Table from '../components/Table'
 import CardContainer from '../components/CardContainer'
 import PageLoader from '../components/PageLoader'
+import MenuItem from 'material-ui/MenuItem'
+import Card from 'material-ui/Card'
+import {cyan500, pink500} from 'material-ui/styles/colors'
 
 class Dashboard extends Component {
     
+    constructor(props) {
+        super(props)
+        
+        this.tableDropdown = this.tableDropdown.bind(this)
+    }
+    
+    tableDropdown() {
+        return <MenuItem primaryText="Refresh" onTouchTap={this.reload} />
+    }
+    
+    reload() {
+        console.log('refresh')
+    }
+    
     render() {
-        
-        const user = {
-            email: "verdi.kap@gmail.com",
-            name: "Verdi Kapuku"
-        }
-        
         return (
     <section className="content">
         <div className="container-fluid">
@@ -55,47 +66,11 @@ class Dashboard extends Component {
                     value="99"
                 />
             </div>
-            
-            
-            <div className="row clearfix">
-                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div className="card">
-                        <div className="header">
-                            <div className="row clearfix">
-                                <div className="col-xs-12 col-sm-6">
-                                    <h2>CPU USAGE (%)</h2>
-                                </div>
-                                <div className="col-xs-12 col-sm-6 align-right">
-                                    <div className="switch panel-switch-btn">
-                                        <span className="m-r-10 font-12">REAL TIME</span>
-                                        <label>OFF<input type="checkbox" id="realtime" checked /><span className="lever switch-col-cyan"></span>ON</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <ul className="header-dropdown m-r--5">
-                                <li className="dropdown">
-                                    <Link to="javascript:void(0);" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i className="material-icons">more_vert</i>
-                                    </Link>
-                                    <ul className="dropdown-menu pull-right">
-                                        <li><Link to="javascript:void(0);">Action</Link></li>
-                                        <li><Link to="javascript:void(0);">Another action</Link></li>
-                                        <li><Link to="javascript:void(0);">Something else here</Link></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="body">
-                            <div id="real_time_chart" className="dashboard-flot-chart"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
             <div className="row clearfix">
                 
-                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                    <div className="card">
+                <div className="col-lg-4">
+                <Card style={{backgroundColor: pink500}}>
+                    <div className="card" style={{boxShadow: 'none', backgroundColor: 'inherit'}}>
                         <div className="body bg-pink">
                             <div className="sparkline" data-type="line" data-spot-radius="4" data-highlight-spot-color="rgb(233, 30, 99)" data-highlight-line-color="#fff"
                                  data-min-spot-color="rgb(255,255,255)" data-max-spot-color="rgb(255,255,255)" data-spot-color="rgb(255,255,255)"
@@ -119,11 +94,12 @@ class Dashboard extends Component {
                             </ul>
                         </div>
                     </div>
+                </Card>
                 </div>
                 
-                
-                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                    <div className="card">
+                <div className="col-lg-4">
+                <Card style={{backgroundColor: cyan500}}>
+                    <div className="card" style={{boxShadow: 'none', backgroundColor: 'inherit'}}>
                         <div className="body bg-cyan">
                             <div className="m-b--35 font-bold">LATEST SOCIAL TRENDS</div>
                             <ul className="dashboard-stat-list">
@@ -151,55 +127,25 @@ class Dashboard extends Component {
                             </ul>
                         </div>
                     </div>
+                </Card>
                 </div>
-                
-                
-                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                    <div className="card">
-                        <div className="body bg-teal">
-                            <div className="font-bold m-b--35">ANSWERED TICKETS</div>
-                            <ul className="dashboard-stat-list">
-                                <li>
-                                    TODAY
-                                    <span className="pull-right"><b>12</b> <small>TICKETS</small></span>
-                                </li>
-                                <li>
-                                    YESTERDAY
-                                    <span className="pull-right"><b>15</b> <small>TICKETS</small></span>
-                                </li>
-                                <li>
-                                    LAST WEEK
-                                    <span className="pull-right"><b>90</b> <small>TICKETS</small></span>
-                                </li>
-                                <li>
-                                    LAST MONTH
-                                    <span className="pull-right"><b>342</b> <small>TICKETS</small></span>
-                                </li>
-                                <li>
-                                    LAST YEAR
-                                    <span className="pull-right"><b>4 225</b> <small>TICKETS</small></span>
-                                </li>
-                                <li>
-                                    ALL
-                                    <span className="pull-right"><b>8 752</b> <small>TICKETS</small></span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
+
+                <CardContainer title="Browser usage" size="col-lg-4">
+                    <div id="donut_chart" className="dashboard-donut-chart"></div>
+                </CardContainer>
+
             </div>
 
             <div className="row clearfix">
                 
-                <Table size="col-lg-8" title="Task infos">
+                <Table size="col-lg-8" title="Best sellers" dropdown={this.tableDropdown()}>
                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Task</th>
-                                            <th>Status</th>
-                                            <th>Manager</th>
-                                            <th>Progress</th>
+                                            <th>Title</th>
+                                            <th>Price</th>
+                                            <th>Posted on</th>
+                                            <th>Total sales</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -262,10 +208,6 @@ class Dashboard extends Component {
                                         </tr>
                                     </tbody>
                 </Table>
-                
-                <CardContainer title="Browser usage" size="col-lg-4">
-                    <div id="donut_chart" className="dashboard-donut-chart"></div>
-                </CardContainer>
             </div>
         </div>
     </section>
