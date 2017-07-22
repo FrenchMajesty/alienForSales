@@ -6,6 +6,7 @@ import CardContainer from '../components/CardContainer'
 import PageLoader from '../components/PageLoader'
 import TextInput from '../components/Form/TextInput'
 import TextArea from '../components/Form/TextArea'
+import TagInput from '../components/Form/TagInput'
 import Dropzone from 'react-dropzone'
 import request from 'superagent'
 import Button from '../components/Button'
@@ -20,11 +21,10 @@ class AddGallery extends Component {
         
         this.state = this.getInitialState()
         
+        this.onTagsChange = this.onTagsChange.bind(this)
+        this.onTagsError = this.onTagsError.bind(this)
+        this.clearMessages = this.clearMessages.bind(this)
         this.onInputChange = this.onInputChange.bind(this)
-        this.displayTags = this.displayTags.bind(this)
-        this.processTagInputField = this.processTagInputField.bind(this)
-        this.removeTag = this.removeTag.bind(this)
-        this.addToTag = this.addToTag.bind(this)
         this.onImageDrop = this.onImageDrop.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -36,47 +36,18 @@ class AddGallery extends Component {
             quantity: '',
             description: '',
             tags: [],
-            inputTag: '',
             uploadedFileUrl: '',
             error: [],
-            sucess: ''
+            success: ''
         }
     }
     
-    
-    displayTags() {
-        const {tags} = this.state
-        
-        if(tags.length > 0) {
-            return(tags.map((tag, i) => {
-                return (<span key={i} className="tag label label-info">{tag}
-                        <span data-role="remove" onTouchTap={() => { this.removeTag(i) }}></span>
-                    </span>)
-            }))
-        }
+    onTagsError(err) {
+        this.setState({error: [err]})
     }
     
-    removeTag(index) {
-        const {tags} = this.state
-        this.setState({tags: tags.filter((_, i) => i !== index)})
-    }
-    
-    addToTag(target) {
-        const {value} = target
-        const {tags, error} = this.state
-        
-        // If limit reached
-        if(tags.length > 9)
-            this.setState({error: ['You cannot add more than 10 tags.'], inputTag: ''})
-        else if(value.length > 0)
-            this.setState({ tags: [...tags, value], inputTag: ''})
-    }
-    
-    processTagInputField(e) {
-        if(e.key == 'Enter') {
-            this.addToTag(e.target)
-            e.preventDefault()
-        }
+    onTagsChange(tags) {
+        this.setState({tags})
     }
     
     onInputChange(e) {
@@ -149,6 +120,11 @@ class AddGallery extends Component {
         }
     }
     
+    clearMessages() {        
+        if(this.state.error.length > 0 || this.state.success.length > 0)
+            this.setState({error: [], success: ''})
+    }
+    
     render() {
         const {inputTag, title, price, quantity, description,
                uploadedFileUrl, tags, image, error, success} = this.state
@@ -217,22 +193,12 @@ class AddGallery extends Component {
                             </div>
                             <div className="row">
                                 <div className="col-lg-6">
-                                 <div className="form-group demo-tagsinput-area">
-                                    <div className="form-line">
-                                        
-                                        <div className="bootstrap-tagsinput">
-                                            {this.displayTags()}
-                                            <input type="text"
-                                                placeholder="Type your tag and hit enter." 
-                                                value={inputTag}
-                                                onChange={(e) => this.setState({inputTag: e.target.value})}
-                                                onKeyPress={this.processTagInputField}
-                                                onBlur={(e) => this.addToTag(e.target)}
-                                            />
-                                        </div>
-                                        
-                                    </div>
-                                </div>
+                                    <TagInput 
+                                        tags={tags}
+                                        reportError={this.onTagsError} 
+                                        updateTags={this.onTagsChange}
+                                        onChange={this.clearMessages}
+                                    />    
                                 </div>
                             </div>
                         <div className="row">

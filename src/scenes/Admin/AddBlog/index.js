@@ -8,6 +8,7 @@ import TextInput from '../components/Form/TextInput'
 import TextArea from '../components/Form/TextArea'
 import Button from '../components/Button'
 import WYSIWYG from '../components/WYSIWYG'
+import TagInput from '../components/Form/TagInput'
 import { displayErrors } from '~/services/Helper'
 import { submitPostToBlog, saveToLog } from '~/services/api'
 
@@ -19,10 +20,9 @@ class AddBlog extends Component {
         
         this.state = this.getInitialState()
         
-        this.displayTags = this.displayTags.bind(this)
-        this.processTagInputField = this.processTagInputField.bind(this)
-        this.removeTag = this.removeTag.bind(this)
-        this.addToTag = this.addToTag.bind(this)
+        this.onTagsChange = this.onTagsChange.bind(this)
+        this.onTagsError = this.onTagsError.bind(this)
+        this.clearMessages = this.clearMessages.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -32,51 +32,24 @@ class AddBlog extends Component {
             title: '',
             article: '<p>Enter your article here.</p>',
             tags: [],
-            inputTag: '',
             error: [],
             success: ''
         }
     }
     
-     displayTags() {
-        const {tags} = this.state
-        
-        if(tags.length > 0) {
-            return(tags.map((tag, i) => {
-                return (<span key={i} className="tag label label-info">{tag}
-                        <span data-role="remove" onTouchTap={() => { this.removeTag(i) }}></span>
-                    </span>)
-            }))
-        }
+    onTagsError(err) {
+        this.setState({error: [err]})
     }
     
-    removeTag(index) {
-        const {tags} = this.state
-        this.setState({tags: tags.filter((_, i) => i !== index)})
-    }
-    
-    addToTag(target) {
-        const {value} = target
-        const {tags, error} = this.state
-        
-        // If limit reached
-        if(tags.length > 9)
-            this.setState({error: ['You cannot add more than 10 tags.'], inputTag: ''})
-        else if(value.length > 0)
-            this.setState({ tags: [...tags, value], inputTag: ''})
-    }
-    
-    processTagInputField(e) {
-        if(e.key == 'Enter') {
-            this.addToTag(e.target)
-            e.preventDefault()
-        }
+    onTagsChange(tags) {
+        this.setState({tags})
     }
     
     handleInputChange(e) {
         const {value, name} = e.target
         
-        this.setState({[name]: value, error: [], success: ''})
+        this.setState({[name]: value})
+        this.clearMessages()
     }
     
     handleSubmit(e) {
@@ -118,8 +91,13 @@ class AddBlog extends Component {
         }
     }
     
+    clearMessages() {        
+        if(this.state.error.length > 0 || this.state.success.length > 0)
+            this.setState({error: [], success: ''})
+    }
+    
     render() {
-        const {title, article, complete, error, success, inputTag} = this.state
+        const {title, article, complete, error, success, tags} = this.state
         return ( 
                 <section className="content">
                     <CardContainer title="Add new article" size="col-lg-12">
@@ -142,22 +120,12 @@ class AddBlog extends Component {
                             </div><br/>
                             <div className="row">
                                 <div className="col-lg-6">
-                                 <div className="form-group demo-tagsinput-area">
-                                    <div className="form-line">
-                                        
-                                        <div className="bootstrap-tagsinput">
-                                            {this.displayTags()}
-                                            <input type="text"
-                                                placeholder="Type your tag and hit enter." 
-                                                value={inputTag}
-                                                onChange={(e) => this.setState({inputTag: e.target.value})}
-                                                onKeyPress={this.processTagInputField}
-                                                onBlur={(e) => this.addToTag(e.target)}
-                                            />
-                                        </div>
-                                        
-                                    </div>
-                                </div>
+                                    <TagInput 
+                                        tags={tags}
+                                        reportError={this.onTagsError} 
+                                        updateTags={this.onTagsChange}
+                                        onChange={this.clearMessages}
+                                    />
                                 </div>
                             </div>    
                                 
