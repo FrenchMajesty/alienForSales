@@ -30,6 +30,10 @@ export function loadGalleryFeed(limit, max) {
     return axios.get(`${BASE_URL}/public/fetch/gallery/?limit=${limit}&max=${max}`)
 }
 
+export function loadArticleFeed(limit, max) {
+    return axios.get(`${BASE_URL}/public/fetch/articles/?limit=${limit}&max=${max}`)
+}
+
 export function loadGallery(id) {
     return axios.get(`${BASE_URL}/public/fetch/gallery/${id}`)
 }
@@ -38,8 +42,12 @@ export function loadBlog(id) {
     return axios.get(`${BASE_URL}/public/fetch/articles/${id}`)
 }
 
-export function postLogin(form) {
-    return axios.post(`${BASE_URL}/system/login`, form)
+export function postLogin(formData, callback) {
+    return axios.post(`${BASE_URL}/system/login`, formData)
+}
+
+export function postLogout() {
+    return axios.get(`${BASE_URL}/system/logout`)
 }
 
 export function verifyAdminAccess() {
@@ -54,6 +62,17 @@ export function submitPostToBlog(formData) {
     return axios.post(`${BASE_URL}/system/post/blog`, formData)
 }
 
+export function updateBlog(formData) {
+    return axios.post(`${BASE_URL}/system/post/blog/update`, formData)
+}
+
+export function deleteBlog(id) {
+    return axios.post(`${BASE_URL}/system/post/blog/delete`, {id})
+}
+
+export function getLogs() {
+    return axios.get(`${BASE_URL}/system/logs`)
+}
 
 
 export function saveToLog(message, user) {
