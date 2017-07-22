@@ -18,7 +18,6 @@ class Login extends Component {
             email: '',
             username: '',
             password: '',
-            rememberMe: false,
             error: []
         }
         
@@ -66,8 +65,7 @@ class Login extends Component {
         
             const formData = {
                 username: username,
-                password: password,
-                rememberMe: rememberMe
+                password: password
             }
             
             postLogin(formData)
@@ -84,7 +82,7 @@ class Login extends Component {
     
     render() {
         
-        const {current, email, username, password, rememberMe, error} = this.state
+        const {current, email, username, password, error} = this.state
         return (
             <section className="login-page">
                  <div className="login-box">
@@ -118,23 +116,13 @@ class Login extends Component {
                                         required={true}
                                     />
                                 <div className="row">
-                                    <div className="col-xs-8 p-t-5">
-                                        <Toggle
-                                            className="remember-me"
-                                            label="Remember me"
-                                            labelPosition="right"
-                                            labelStyle={{fontWeight: '500'}}
-                                            toggled={rememberMe}
-                                            onToggle={(_, rememberMe) => this.setState({rememberMe})}
-                                        />
-                                    </div>
-                                    <div className="col-xs-4">
+                                    <div className="col-xs-4 col-md-offset-8">
                                         <RaisedButton label="Sign in" secondary={true} type="submit" />
                                     </div>
                                 </div>
                                 <div className="row m-t-35 m-b--20">
                                     <div className="col-xs-6 align-right">
-                                        <Link onTouchTap={this.showResetter}>Forgot Password?</Link>
+                                        <Link onTouchTap={this.showResetter} style={{cursor: 'pointer'}}>Forgot Password?</Link>
                                     </div>
                                 </div>
                             </form>
