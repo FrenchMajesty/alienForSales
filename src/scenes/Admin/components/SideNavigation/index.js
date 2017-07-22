@@ -9,6 +9,8 @@ import Subheader from 'material-ui/Subheader'
 import ContentDrafts from 'material-ui/svg-icons/content/drafts'
 import Drawer from 'material-ui/Drawer'
 import { grey50 } from 'material-ui/styles/colors'
+import { formatDate } from '~/services/Helper'
+import { getLogs } from '~/services/api'
 
 class SideNavigation extends Component {    
     
@@ -18,6 +20,7 @@ class SideNavigation extends Component {
         this.state = this.getInitialState()
         
         this.renderLogs = this.renderLogs.bind(this)
+        this.loadLogs = this.loadLogs.bind(this)
     }
     
     getInitialState() {
@@ -25,7 +28,7 @@ class SideNavigation extends Component {
             changelogOpen: false,
             logs: [
                 {
-                    timestamp: "05/05/2016",
+                    timestamp: "05/31/2017",
                     operation: "Coded a fairly nice administrative panel in React",
                     user: "Verdi"
                 }
@@ -33,23 +36,32 @@ class SideNavigation extends Component {
         }
     }
     
+    componentWillMount() {
+        this.loadLogs()
+    }
+    
+    componentWillUpdate() {
+        this.loadLogs()
+    }
+    
+    loadLogs() {
+        getLogs().then(response => {
+            if(response.data.length > 0)
+                this.setState({logs: response.data})
+        })
+    }
+    
     calculateHeight() {
         return ($(window).height() - ($('.legal').outerHeight() + $('.user-info').outerHeight() + $('.navbar').outerHeight()));
     }
     
-    handleLogout(e) {
-        
-        // API CALLS then redirect
-    }
-    
     renderLogs() {
         const {logs} = this.state
-        
         if(logs.length > 0) {
             return(logs.map((log, i) => {
                 return(<ListItem className="font-italic" key={i+2}
                         leftIcon={<FontIcon className="material-icons inherit">fingerprint</FontIcon>}
-                           primaryText={`On ${log.timestamp}, ${log.user} ${log.operation}`}
+                           primaryText={`On ${formatDate(log.date_recorded)}, ${log.action} by ${log.user}`}
                            />)
             }))
         }else {
@@ -58,7 +70,7 @@ class SideNavigation extends Component {
     }
     
     render() {
-        const {user, active} = this.props
+        const {user, active, logout} = this.props
         const {changelogOpen} = this.state
         return (
 
@@ -79,7 +91,7 @@ class SideNavigation extends Component {
                                 targetOrigin={{horizontal: 'right', vertical: 'top'}}
                             >
                                 <MenuItem linkButton containerElement={<Link to={active} />} primaryText="Refresh page" />
-                                <MenuItem onTouchTap={this.handleLogout} primaryText="Logout" />
+                                <MenuItem onTouchTap={logout} primaryText="Logout" />
                             </IconMenu>
                         </div>
                     </div>

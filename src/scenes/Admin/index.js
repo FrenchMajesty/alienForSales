@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import SideNavigation from './components/SideNavigation'
 import TopNavBar from './components/TopNavBar'
 import PageLoader from './components/PageLoader'
-import { verifyAdminAccess } from '~/services/api'
+import { verifyAdminAccess, postLogout } from '~/services/api'
 
 class Admin extends Component {
     
@@ -19,6 +19,7 @@ class Admin extends Component {
         
         this.verifyAccess = this.verifyAccess.bind(this)
         this.renderChildren = this.renderChildren.bind(this)
+        this.handleLogout = this.handleLogout.bind(this)
     }
     
     componentWillMount() {
@@ -34,12 +35,16 @@ class Admin extends Component {
     verifyAccess() {
         verifyAdminAccess()
         .then(isAllowed => {
-            console.log(isAllowed.data)
+            console.log('is allowed: ' + isAllowed.data)
             if(isAllowed.data === false)
                 this.props.history.pushState(null, '/admin/login')
             else
                 this.setState({logged: isAllowed.data})
         })   
+    }
+    
+    handleLogout() { 
+        postLogout().then(_ => window.location.replace('/'))
     }
     
     renderChildren(children) {
@@ -60,7 +65,7 @@ class Admin extends Component {
                     <div>
                         <TopNavBar />
                         <section>
-                            <SideNavigation user={user} active={location.pathname} />
+                            <SideNavigation user={user} active={location.pathname} logout={this.handleLogout} />
 
                             <aside id="rightsidebar" className="right-sidebar">
                     <ul className="nav nav-tabs tab-nav-right" role="tablist">
