@@ -14,7 +14,7 @@ class Home extends Component {
         
         this.state = {
             posts: [],
-            limits: [0, 4],
+            limits: [0, 5],
             size: 4
         }
         
@@ -59,8 +59,6 @@ class Home extends Component {
                 limits: lim,
                 posts: response.data
             })
-            console.log(lim)
-            console.log(response.data)
         })
     }
     

@@ -108,7 +108,7 @@ class AddBlog extends Component {
                 if(response.data === true) {
                     this.setState(this.getInitialState())
                     this.setState({success: 'Article was successfully posted.'})
-                    saveToLog(`Article '${title}' was added`, this.props.user)
+                    saveToLog(`Article '${title}' was written`, this.props.user)
                 }else if(response.data.error) {
                     this.setState({error: [response.data.error]})
                 }else {

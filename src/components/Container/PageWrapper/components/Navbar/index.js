@@ -19,7 +19,7 @@ const Navbar = (props) => {
                             </h1>
                         </div>
                         <div className="descriptionwrapper">
-                            <p className="description"><span>Buy aliens.</span></p>
+                            <p className="description"><span>Buy aliens for cheap now or for millions later.</span></p>
                         </div>
                     </div>
                 </div></div>
