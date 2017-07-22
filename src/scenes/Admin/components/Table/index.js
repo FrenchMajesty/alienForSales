@@ -4,7 +4,7 @@ import IconMenu from 'material-ui/IconMenu'
 import IconButton from 'material-ui/IconButton'
 import FontIcon from 'material-ui/FontIcon'
 
-const Table = ({children, size, title, tableStyle, animation, dropdown}) => {
+const Table = ({id, children, size, title, tableStyle, animation, dropdown}) => {
     
     const animate = animation || ''
     return (
@@ -25,7 +25,7 @@ const Table = ({children, size, title, tableStyle, animation, dropdown}) => {
                         </div>
                         <div className="body">
                             <div className="table-responsive">
-                                <table className={"table dashboard-task-infos "+ tableStyle}>
+                                <table id={id || null} className={"table dashboard-task-infos "+ tableStyle}>
                                     {children}
                                 </table>
                             </div>
