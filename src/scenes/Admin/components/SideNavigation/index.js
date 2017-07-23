@@ -9,7 +9,7 @@ import Subheader from 'material-ui/Subheader'
 import ContentDrafts from 'material-ui/svg-icons/content/drafts'
 import Drawer from 'material-ui/Drawer'
 import { grey50 } from 'material-ui/styles/colors'
-import { formatDate } from '~/services/Helper'
+import { formatPreciseDate } from '~/services/Helper'
 import { getLogs } from '~/services/api'
 
 class SideNavigation extends Component {    
@@ -61,7 +61,7 @@ class SideNavigation extends Component {
             return(logs.map((log, i) => {
                 return(<ListItem className="font-italic" key={i+2}
                         leftIcon={<FontIcon className="material-icons inherit">fingerprint</FontIcon>}
-                           primaryText={`On ${formatDate(log.date_recorded)}, ${log.action} by ${log.user}`}
+                           primaryText={`On ${formatPreciseDate(log.date_recorded)}, ${log.action} by ${log.user}`}
                            />)
             }))
         }else {
