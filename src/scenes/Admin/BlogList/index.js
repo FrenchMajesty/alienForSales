@@ -5,10 +5,12 @@ import CardContainer from '../components/CardContainer'
 import TextInput from '../components/Form/TextInput'
 import Button from '../components/Button'
 import WYSIWYG from '../components/WYSIWYG'
+import TagInput from '../components/Form/TagInput'
 import { displayErrors } from '~/services/Helper' 
 import FontIcon from 'material-ui/FontIcon'
 import IconButton from 'material-ui/IconButton'
 import MenuItem from 'material-ui/MenuItem'
+import { loadArticleFeed, updateBlog, deleteBlog, saveToLog } from '~/services/api'
 
 class BlogList extends Component {
     
@@ -17,116 +19,212 @@ class BlogList extends Component {
         
         this.state = this.getInitialState()
         
+        this.loadArticles = this.loadArticles.bind(this)
+        this.editArticle = this.editArticle.bind(this)
+        this.deleteArticle = this.deleteArticle.bind(this)
+        this.renderTable = this.renderTable.bind(this)
+        this.onTagsChange = this.onTagsChange.bind(this)
+        this.onTagsError = this.onTagsError.bind(this)
+        this.clearMessages = this.clearMessages.bind(this)
         this.onInputChange = this.onInputChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleUpdateSubmit = this.handleUpdateSubmit.bind(this)
     }
     
     getInitialState() {
         return {
-            editingMode: false,
-            update: {},
-            error: []
+            articles: [],
+            form: {id: null},
+            error: [],
+            success: ''
         }
     }
     
+    componentWillMount() {
+        this.loadArticles()
+    }
+    
+    componentDidMount() {
+        setTimeout(() => $('#blogs').DataTable(), 100)
+    }
+    
+    componentDidUpdate() {
+        setTimeout(() => $('#blogs').DataTable(), 100)
+    }
+    
+    loadArticles() {
+        loadArticleFeed(0, 999) // load all
+        .then(response => this.setState({articles: response.data}))
+    }
+    
     tableDropdown() {
-        return (<section>
-                    <MenuItem linkButton containerElement={<Link to="/admin/" />} primaryText="Refresh" />
-                    <MenuItem primaryText="Do something" />
-                </section>)
+        return <MenuItem onTouchTap={this.loadArticles} primaryText="Refresh" />
     }
     
     editCardDropdown() {
-        return <MenuItem primaryText="Discard changes & close" />
+        return <MenuItem onTouchTap={() => this.setState({form: {id: null}})} primaryText="Discard changes & close" />
+    }
+    
+    editArticle(i) {
+        let {articles, form} = this.state
+        this.setState({form: {...form, ...articles[i]}})
+    }
+    
+    deleteArticle(i) {
+        if(!confirm('Are you sure you want to delete this article? This action cannot be reverted.')) return
+       
+        const {articles} = this.state
+        
+        deleteBlog(articles[i].id).then(response => {
+            console.log(response.data)
+            if(response.data === true) {
+                this.setState(this.getInitialState())
+                this.setState({articles: articles.filter((_, idx) => idx !== i),})
+                saveToLog(`Article '${title}' was deleted`, this.props.user)
+            }else if(response.data.error) {
+                alert('Error: ' + response.data.error)
+            }
+        })
+    }
+    
+    renderTable() {
+        const {articles} = this.state
+        
+        return(articles.map((article, i) => {
+            return (
+                <tr key={i}>
+                    <td>{article.title}</td>
+                    <td>{article.date_posted}</td>
+                    <td>{article.tags}</td>
+                    <td>
+                        <IconButton onTouchTap={() => { this.editArticle(i) }}>
+                            <FontIcon className="material-icons">create</FontIcon>
+                        </IconButton>
+                        <IconButton onTouchTap={() => { this.deleteArticle(i) }}>
+                            <FontIcon className="material-icons">delete_forever</FontIcon>
+                        </IconButton>
+                    </td>
+                </tr>
+            )   
+        }))
+    }
+    
+    onTagsError(err) {
+        this.setState({error: [err]})
+    }
+    
+    onTagsChange(newTags) {
+        let {form} = this.state
+        form.tags = newTags
+        this.setState({form})
     }
     
     onInputChange(e) {
         const {name, value} = e.target
-        let update = this.state.update 
+        let {form} = this.state
         
-        if(e.target.getContent())
-            update[name] = e.target.getContent()
+        if(e.target.id == 'react-tinymce-0')
+            form[name] = e.target.getContent()
         else
-            update[name] = value
+            form[name] = value
             
-        this.setState({update})
+        this.setState({form})
+        this.clearMessages()
     }
     
-    handleSubmit(e) {
+    handleUpdateSubmit(e) {
         e.preventDefault()
         
-        // verify form    
+        const {id, title, article, tags} = this.state.form
+        let error = []
+        
+        if(title.length < 3)
+            error.push('Title must be at least 3 characters.')
+        
+        if(title.length > 120)
+            error.push('Title must be less than 120 characters.')
+        
+        if(article.length < 50)
+            error.push('Article content must be at least 50 characters.')
+        
+        if(error.length > 0) {
+            this.setState({error})
+        }else {
+            const formData = {
+                id: id,
+                title: title,
+                article: article,
+                tags: tags.join(',')
+            }
+            
+            updateBlog(formData)
+            .then(response => {
+                if(response.data === true) {
+                    this.setState(this.getInitialState())
+                    this.setState({success: 'Article was successfully updated.'})
+                    saveToLog(`Article '${title}' was updated`, this.props.user)
+                }else if(response.data.error) {
+                    this.setState({error: [response.data.error]})
+                }else {
+                    this.setState({error: ['Unknown error occured while updating blog article, please try again.']})
+                }
+            })
+        }  
+    }
+    
+    clearMessages() {        
+        if(this.state.error.length > 0 || this.state.success.length > 0)
+            this.setState({error: [], success: ''})
     }
     
     render() {
         console.log(this.state)
-        const {update, editingMode, error} = this.state
+        const {articles, form, error} = this.state
+        
         return (
              <section className="content">
                 <div className="container-fluid">
                     
-                    <Table title="Blogs" size="col-lg-12" tableStyle="table-striped"
+                    <Table id="blogs" title="Blogs" size="col-lg-12" tableStyle="table-striped"
                         dropdown={this.tableDropdown()}>
                                 <thead>
                                     <tr>
                                         <th>Title</th>
                                         <th>Date</th>
-                                        <th>Controls</th>
+                                        <th>Tags</th>
                                         <th>Edit</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Car</td>
-                                        <td>200</td>
-                                        <td>0</td>
-                                        <td><IconButton onTouchTap={(e) => this.setState({editingMode: true})}>
-                                            <FontIcon className="material-icons">create</FontIcon>
-                                        </IconButton></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Bike</td>
-                                        <td>240</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Plane</td>
-                                        <td>540</td>
-                                        <td>3</td>
-                                        <td>3</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Yacht</td>
-                                        <td>200</td>
-                                        <td>200</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Segway</td>
-                                        <td>240</td>
-                                        <td>240</td>
-                                        <td>1</td>
-                                    </tr>
+                                {this.renderTable()}
                                 </tbody>
                     </Table>
-                    {editingMode &&
+                    {form.id &&
                         <CardContainer title="Update article" size="col-lg-12" animation="fadeInUp"
                             dropdown={this.editCardDropdown()}>
-                         <form onSubmit={this.handleSubmit}> 
+                         <form onSubmit={this.handleUpdateSubmit}> 
                             <div className="row clearfix">
                                 <TextInput
                                     placeholder="Title"
                                     size="col-md-6"
                                     icon="text_fields"
                                     name="title"
-                                    value={update.title}
+                                    value={form.title}
                                     onChange={this.onInputChange}
                                 />
                             </div>
                             <div className="row">
-                                <WYSIWYG content={update.article} onChange={this.onInputChange} />
+                                <WYSIWYG content={form.article} onChange={this.onInputChange} />
                             </div><br/>
+                            <div className="row">
+                                <div className="col-lg-6">
+                                    <TagInput 
+                                        tags={form.tags}
+                                        reportError={this.onTagsError} 
+                                        updateTags={this.onTagsChange}
+                                        onChange={this.clearMessages}
+                                    />
+                                </div>
+                            </div> 
                             <div className="row">
                                 <div className="text-center">
                                     <Button type="submit" className="btn-info btn-lg" title="Update" icon="autorenew" />
