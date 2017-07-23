@@ -10,6 +10,7 @@ import { displayErrors } from '~/services/Helper'
 import FontIcon from 'material-ui/FontIcon'
 import IconButton from 'material-ui/IconButton'
 import MenuItem from 'material-ui/MenuItem'
+import { formatPreciseDate } from '~/services/Helper'
 import { loadArticleFeed, updateBlog, deleteBlog, saveToLog } from '~/services/api'
 
 class BlogList extends Component {
@@ -75,10 +76,9 @@ class BlogList extends Component {
         const {articles} = this.state
         
         deleteBlog(articles[i].id).then(response => {
-            console.log(response.data)
             if(response.data === true) {
                 this.setState(this.getInitialState())
-                this.setState({articles: articles.filter((_, idx) => idx !== i),})
+                this.setState({articles: articles.filter((_, idx) => idx !== i)})
                 saveToLog(`Article '${title}' was deleted`, this.props.user)
             }else if(response.data.error) {
                 alert('Error: ' + response.data.error)
@@ -93,7 +93,7 @@ class BlogList extends Component {
             return (
                 <tr key={i}>
                     <td>{article.title}</td>
-                    <td>{article.date_posted}</td>
+                    <td>{formatPreciseDate(article.date_posted)}</td>
                     <td>{article.tags}</td>
                     <td>
                         <IconButton onTouchTap={() => { this.editArticle(i) }}>
@@ -177,7 +177,6 @@ class BlogList extends Component {
     }
     
     render() {
-        console.log(this.state)
         const {articles, form, error} = this.state
         
         return (
