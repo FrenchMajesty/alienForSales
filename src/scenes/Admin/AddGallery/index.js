@@ -130,7 +130,7 @@ class AddGallery extends Component {
                uploadedFileUrl, tags, image, error, success} = this.state
         return (
                 <section className="content">
-                    <CardContainer title="Upload an Item" size="col-lg-12" smallPrint="Must use dropzonejs.com">
+                    <CardContainer title="Upload an Item" size="col-lg-12" smallPrint="Fill out the form below to add to your gallery.">
                             <form action="/" id="frmFileUpload" method="post" encType="multipart/form-data" onSubmit={this.handleSubmit}>
                                 <Dropzone
                                     className="drop-zone"
