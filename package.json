@@ -33,6 +33,7 @@
     "babel-plugin-react-css-modules": "^3.0.0",
     "babel-preset-stage-1": "^6.1.18",
     "custom-react-scripts": "0.0.23",
+    "html-to-react": "^1.2.11",
     "jquery": "^2.2.4",
     "jquery-validation": "^1.16.0",
     "lodash": "^3.10.1",
