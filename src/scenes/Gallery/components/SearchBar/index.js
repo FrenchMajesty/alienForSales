@@ -4,13 +4,13 @@ import { connect } from 'react-redux'
 class SearchBar extends Component {
     
     render() {
-        const {placeholder} = this.props
+        const {placeholder, onSearch} = this.props
         
         return (
         <aside className="search-bar-top">
         <div className="inner-container">
-            <form action="/search" className="search-box" id="search_top" method="get">
-                <input className="search-query-input" name="q" placeholder={placeholder} type="text" />
+            <form className="search-box" id="search_top" onSubmit={onSearch}>
+                <input className="search-query-input" name="search" placeholder={placeholder} type="text" />
                 <button className="submit-btn-form" type="submit">Search</button>
             </form>
         </div>

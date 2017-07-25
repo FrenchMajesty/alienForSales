@@ -14,13 +14,16 @@ class Gallery extends Component {
         super(props)
         
         this.state = this.getInitialState()
+        
+        this.searchGallery = this.searchGallery.bind(this)
     }
         
     getInitialState() {
         return {
             limits: [0,5],
             size: 5,
-            gallery: []
+            gallery: [],
+            fullGallery: []
         }
     }
     
@@ -29,7 +32,7 @@ class Gallery extends Component {
         
         loadGalleryFeed(limits[0],limits[1])
         .then(response => {
-            this.setState({gallery: response.data})
+            this.setState({gallery: response.data, fullGallery: response.data})
         })
     }
     
@@ -37,8 +40,21 @@ class Gallery extends Component {
         new WOW().init()
     }
     
-    searchGallery(query) {
+    shouldComponentUpdate() {
         
+    }
+    
+    searchGallery(e) {
+        e.preventDefault()
+        const searchTerm = new RegExp(e.target.search.value.replace(/[^a-zA-Z 0-9]+/g,''), 'i')
+        const {fullGallery} = this.state
+        
+        const gal = fullGallery.filter((item,i) => {
+            if(i < fullGallery.length-1)
+                return item.title.search(searchTerm) != -1 || item.description.search(searchTerm) != -1
+        })
+        gal.push(gal.length)
+        this.setState({gallery: gal})
     }
     
     moveForward() {
@@ -49,7 +65,8 @@ class Gallery extends Component {
         .then(response => {
             this.setState({
                 limits: lim,
-                gallery: response.data
+                gallery: response.data,
+                fullGallery: response.data
             })
         })
     }
@@ -62,7 +79,8 @@ class Gallery extends Component {
         .then(response => {
             this.setState({
                 limits: lim,
-                gallery: response.data
+                gallery: response.data,
+                fullGallery: response.data
             })
         })
     }
@@ -83,7 +101,7 @@ class Gallery extends Component {
         const {limits, gallery} = this.state
         return (
             <PageWrapper>
-                <SearchBar placeholder="Search the gallery" onSubmit={this.searchGallery} />
+                <SearchBar placeholder="Search the gallery" onSearch={this.searchGallery} />
 
                 <div className="main-outer">
                 <div className="fauxborder-left main-fauxborder-left">
