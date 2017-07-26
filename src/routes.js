@@ -6,6 +6,7 @@ import Home from './scenes/Home'
 import AboutMe from './scenes/AboutMe'
 import Gallery from './scenes/Gallery'
 import GallerySingleView from './scenes/GallerySingleView'
+import BlogSingleView from './scenes/BlogSingleView'
 
 import Admin from './scenes/Admin'
 import Login from './scenes/Admin/Login'
@@ -24,6 +25,7 @@ export default (
             <Route path="/gallery">
                 <IndexRoute component={Gallery} author={author} />
                 <Route path="/gallery(/:id)" component={GallerySingleView} author={author} />
+                <Route path="/blog(/:id)" component={BlogSingleView} author={author} />
             </Route>
             <Route path="/admin" component={Admin}>
                 <IndexRoute component={Dashboard} />
