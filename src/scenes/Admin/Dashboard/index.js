@@ -9,13 +9,39 @@ import PageLoader from '../components/PageLoader'
 import MenuItem from 'material-ui/MenuItem'
 import Card from 'material-ui/Card'
 import {cyan500, pink500} from 'material-ui/styles/colors'
+import { formatDate } from '~/services/Helper'
 
 class Dashboard extends Component {
     
     constructor(props) {
         super(props)
         
+        this.state = this.getInitialState()
+        
+        this.renderTable = this.renderTable.bind(this)
+        this.loadGallery = this.loadGallery.bind(this)
         this.tableDropdown = this.tableDropdown.bind(this)
+    }
+    
+    getInitialState() {
+        return {
+            popular: []
+        }
+    }
+    
+    componentWillMount() {
+        this.loadData()    
+    }
+    
+    componentWillReceiveProps() {
+        this.loadData()
+    }
+    
+    loadData() {
+       /*loadBestSellers(10) // -- does not exist yet
+        .then(response => this.setState({popular: response.data}))
+        
+        // load all data for statbox.... */
     }
     
     tableDropdown() {
@@ -23,7 +49,25 @@ class Dashboard extends Component {
     }
     
     reload() {
-        console.log('refresh')
+        this.loadData()
+    }
+    
+    renderTable() {
+        const {popular} = this.state
+        
+        return(popular.map((item, i) => {
+            if(i == popular.length-1) return // Skip last entry
+            
+            return (
+                <tr key={i}>
+                    <td>{item.id}</td>
+                    <td>{item.title}</td>
+                    <td>{Number(item.price).toLocaleString()}</td>
+                    <td>{formatDate(item.date_posted)}</td>
+                    <td>00</td>
+                </tr>
+            )   
+        }))
     }
     
     render() {
@@ -136,79 +180,22 @@ class Dashboard extends Component {
 
             </div>
 
-            <div className="row clearfix">
-                
+            {/*<div className="row clearfix">
                 <Table size="col-lg-8" title="Best sellers" dropdown={this.tableDropdown()}>
                     <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Title</th>
-                                            <th>Price</th>
-                                            <th>Posted on</th>
-                                            <th>Total sales</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Task A</td>
-                                            <td><span className="label bg-green">Doing</span></td>
-                                            <td>John Doe</td>
-                                            <td>
-                                                <div className="progress">
-                                                    <div className="progress-bar bg-green" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" style={{width: "62%"}}></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Task B</td>
-                                            <td><span className="label bg-blue">To Do</span></td>
-                                            <td>John Doe</td>
-                                            <td>
-                                                <div className="progress">
-                                                    <div className="progress-bar bg-blue" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: "40%"}}></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Task C</td>
-                                            <td><span className="label bg-light-blue">On Hold</span></td>
-                                            <td>John Doe</td>
-                                            <td>
-                                                <div className="progress">
-                                                    <div className="progress-bar bg-light-blue" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style={{width: "72%"}}></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Task D</td>
-                                            <td><span className="label bg-orange">Wait Approvel</span></td>
-                                            <td>John Doe</td>
-                                            <td>
-                                                <div className="progress">
-                                                    <div className="progress-bar bg-orange" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style={{width: "95%"}}></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Task E</td>
-                                            <td>
-                                                <span className="label bg-red">Suspended</span>
-                                            </td>
-                                            <td>John Doe</td>
-                                            <td>
-                                                <div className="progress">
-                                                    <div className="progress-bar bg-red" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" style={{width: "87%"}}></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Price</th>
+                            <th>Posted on</th>
+                            <th>Total sales</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderTable()}
+                    </tbody>
                 </Table>
-            </div>
+            </div>*/}
         </div>
     </section>
         )
