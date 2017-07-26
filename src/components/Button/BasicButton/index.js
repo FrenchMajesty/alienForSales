@@ -6,31 +6,18 @@ import FontIcon from 'material-ui/FontIcon'
 const BasicButton = ({className,disabled, target, color, title, icon, id, onClick}) => {
     
     const bgCol = color ? {backgroundColor: color} : {}
-    const disabler = className ? {disabled: "true"} : {to: target}
-    
+    const disabler = className ? {disabled: true} : {to: target}
 
    return (
        <button className={"home-link basic-button " + className}
-        style={{overflow: "hidden"}, bgCol}
-        id={id}
-        onTouchTap={onClick}
+            style={{overflow: "hidden"}, bgCol}
+            id={id}
+            onTouchTap={onClick}
+           {...disabler}
         >
        {title}
        </button>
    )
-   /*(
-       <Link
-            className={"home-link basic-button " + className}
-            style={{overflow: "hidden"}, bgCol}
-            id={id}
-            {...disabler}
-        >
-            <span className="ink pressed animatedR"> </span>
-            {icon &&
-                <i className="material-icons">{icon}</i>}
-                {title}
-        </Link>)*/
-    
 }
 
 export default BasicButton
