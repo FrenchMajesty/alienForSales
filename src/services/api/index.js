@@ -62,8 +62,16 @@ export function submitPostToBlog(formData) {
     return axios.post(`${BASE_URL}/system/post/blog`, formData)
 }
 
+export function updateGalleryItem(formData) {
+    return axios.post(`${BASE_URL}/system/post/gallery/update`, formData)
+}
+
 export function updateBlog(formData) {
     return axios.post(`${BASE_URL}/system/post/blog/update`, formData)
+}
+
+export function deleteGalleryItem(id) {
+    return axios.post(`${BASE_URL}/system/post/gallery/delete`, {id})
 }
 
 export function deleteBlog(id) {
