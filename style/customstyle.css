@@ -47,6 +47,10 @@ button{
 .single-view-date {
     right: 21.5em;
 }
+.material-post-footer {
+    padding: 10px 15px;
+    color: #666;
+}
 .wow {
     visibility: hidden;
 }
