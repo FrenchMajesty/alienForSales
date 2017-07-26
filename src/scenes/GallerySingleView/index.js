@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
-import ItemCard from './components/ItemCard'
+import ItemCard from '~/components/ItemCard'
 import PageWrapper from '~/components/Container/PageWrapper'
 import ColumnContainer from '~/components/Container/ColumnContainer'
 import { loadGallery } from '~/services/api'
@@ -20,14 +19,30 @@ class GallerySingleViw extends Component {
         
         loadGallery(params.id)
         .then(response => {
-            if(response.data.error) {
-                this.setState({error: [response.data.error]})
-            }else if(!response.data.id) {
+            if(response.data.error || !response.data.id) {
                 history.push(null, '/404')
             }else {
                 this.setState({data: response.data})
+                if(response.data.quantity > 0) this.activatePaypalButton()
             }
         })
+    }
+    
+    activatePaypalButton() {
+        paypal.Button.render({
+
+            env: 'production', // Or 'sandbox',
+
+            commit: true, // Show a 'Pay Now' button
+
+            payment: function() {
+                        // Set up the payment here
+            },
+
+            onAuthorize: function(data, actions) {
+                        // Execute the payment here
+            }
+        }, '#buy-button')
     }
     
     render() {
