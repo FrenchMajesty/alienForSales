@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router'
+import React, {Component} from 'react'
 import InfoBox from './components/InfoBox'
 import SideNavigation from '../components/SideNavigation'
 import TopNavBar from '../components/TopNavBar'
@@ -9,7 +8,7 @@ import PageLoader from '../components/PageLoader'
 import MenuItem from 'material-ui/MenuItem'
 import Card from 'material-ui/Card'
 import {cyan500, pink500} from 'material-ui/styles/colors'
-import { formatDate } from '~/services/Helper'
+import {formatDate} from '~/services/Helper'
 
 class Dashboard extends Component {
     
@@ -19,7 +18,7 @@ class Dashboard extends Component {
         this.state = this.getInitialState()
         
         this.renderTable = this.renderTable.bind(this)
-        this.loadGallery = this.loadGallery.bind(this)
+        this.loadData = this.loadData.bind(this)
         this.tableDropdown = this.tableDropdown.bind(this)
     }
     
