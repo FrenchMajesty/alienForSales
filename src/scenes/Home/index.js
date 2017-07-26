@@ -12,54 +12,56 @@ class Home extends Component {
     constructor(props) {
         super(props)
         
-        this.state = {
-            posts: [],
-            limits: [0, 5],
-            size: 4
-        }
+        this.state = this.getInitialState()
         
+        this.loadFeed = this.loadFeed.bind(this)
+        this.resetToHome = this.resetToHome.bind(this)
         this.renderPosts = this.renderPosts.bind(this)
         this.processNewerPage = this.processNewerPage.bind(this)
         this.processOlderPage = this.processOlderPage.bind(this)
     }
     
+    getInitialState() {
+        return {
+            posts: [],
+            limits: [0, 5],
+            size: 4
+        }
+    }
+    
     componentWillMount() {
-        const {limits} = this.state
-        
-        loadFeed(limits[0],limits[1])
-        .then(posts => {
-            this.setState({posts: posts.data})
-        })
+        this.loadFeed(this.state.limits)
     }
     
     componentDidMount() {
         new WOW().init()  
     }
     
-    processNewerPage() {
-        const {limits, size} = this.state
-        const lim = [limits[0]-size, limits[1]-size]
-        
-        loadFeed(lim[0], lim[1])
-        .then(response => {
+    loadFeed(limits) {
+        loadFeed(limits[0],limits[1])
+        .then(posts => {
             this.setState({
-                limits: lim,
-                posts: response.data
+                limits: limits,
+                posts: posts.data
             })
         })
     }
     
+    processNewerPage() {
+        const {limits, size} = this.state
+        
+        this.loadFeed([limits[0]-size, limits[1]-size])
+    }
+    
     processOlderPage() {
         const {limits, size} = this.state
-        const lim = [limits[0]+size, limits[1]+size]
-        
-        loadFeed(lim[0], lim[1])
-        .then(response => {
-            this.setState({
-                limits: lim,
-                posts: response.data
-            })
-        })
+        this.loadFeed([limits[0]+size, limits[1]+size])
+    }
+    
+    resetToHome() {
+        const baseState = this.getInitialState()
+        this.setState(baseState)
+        this.loadFeed(baseState.limits)
     }
     
     renderPosts() {
@@ -89,7 +91,9 @@ class Home extends Component {
                 </div>
                     <Pager current={limits} max={posts[posts.length-1]}
                         moveForward={this.processNewerPage}
-                        moveBackward={this.processOlderPage}/>
+                        moveBackward={this.processOlderPage}
+                        resetHome={this.resetToHome}
+                    />
                     <div className="blog-feeds">
                         <div className="feed-links">
                             Click here to: <Link to="#" className="feed-link" target="_blank">Subscribe to my blog</Link>

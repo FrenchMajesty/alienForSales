@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router'
+import React, {Component} from 'react'
+import {Link} from 'react-router'
 import PageWrapper from '~/components/Container/PageWrapper'
 import ColumnContainer from '~/components/Container/ColumnContainer'
 import GalleryGrid from './components/GalleryGrid'
 import GalleryItem from './components/GalleryItem'
 import Pager from '~/components/Container/ColumnContainer/Pager'
 import SearchBar from './components/SearchBar'
-import { loadGalleryFeed } from '~/services/api'
+import {loadGalleryFeed} from '~/services/api'
 
 class Gallery extends Component {
     
@@ -15,6 +15,11 @@ class Gallery extends Component {
         
         this.state = this.getInitialState()
         
+        
+        this.resetToHome = this.resetToHome.bind(this)
+        this.moveForward = this.moveForward.bind(this)
+        this.moveBackward = this.moveBackward.bind(this)
+        this.loadGalleryFeed = this.loadGalleryFeed.bind(this)
         this.searchGallery = this.searchGallery.bind(this)
     }
         
@@ -28,20 +33,11 @@ class Gallery extends Component {
     }
     
     componentWillMount() {
-        const {limits} = this.state
-        
-        loadGalleryFeed(limits[0],limits[1])
-        .then(response => {
-            this.setState({gallery: response.data, fullGallery: response.data})
-        })
+        this.loadGalleryFeed(this.state.limits)
     }
     
     componentDidMount() {
         new WOW().init()
-    }
-    
-    shouldComponentUpdate() {
-        
     }
     
     searchGallery(e) {
@@ -57,32 +53,31 @@ class Gallery extends Component {
         this.setState({gallery: gal})
     }
     
-    moveForward() {
-        const {limits, size} = this.state
-        const lim = [limits[0]-size, limits[1]-size]
-        
-        loadGalleryFeed(lim[0],lim[1])
+    loadGalleryFeed(limits) {
+        loadGalleryFeed(limits[0],limits[1])
         .then(response => {
             this.setState({
-                limits: lim,
+                limits: limits,
                 gallery: response.data,
                 fullGallery: response.data
             })
         })
     }
     
+    moveForward() {
+        const {limits, size} = this.state
+        this.loadGalleryFeed([limits[0]-size, limits[1]-size])
+    }
+    
     moveBackward() {
         const {limits, size} = this.state
-        const lim = [limits[0]+size, limits[1]+size]
-        
-        loadGalleryFeed(lim[0],lim[1])
-        .then(response => {
-            this.setState({
-                limits: lim,
-                gallery: response.data,
-                fullGallery: response.data
-            })
-        })
+        this.loadGalleryFeed([limits[0]+size, limits[1]+size])
+    }
+    
+    resetToHome() {
+        const baseState = this.getInitialState()
+        this.setState(baseState)
+        this.loadGalleryFeed(baseState.limits)
     }
     
     renderGallery(gallery) {
@@ -117,7 +112,9 @@ class Gallery extends Component {
                     </div>
                     <Pager current={limits} max={gallery[gallery.length-1]}
                         moveForward={this.loadNewerPosts}
-                        moveBackward={this.loadOlderPosts} />
+                        moveBackward={this.loadOlderPosts} 
+                        resetHome={this.resetToHome}
+                    />
                 </ColumnContainer>
 
 

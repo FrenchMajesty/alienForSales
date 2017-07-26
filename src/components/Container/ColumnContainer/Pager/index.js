@@ -3,7 +3,7 @@ import {Link} from 'react-router'
 import BasicButton from '~/components/Button/BasicButton'
 
 
-const Pager = ({ moveBackward, moveForward, current, max }) => {
+const Pager = ({ moveBackward, moveForward, resetHome, current, max }) => {
     
     const newButton = "blog-pager-newer-link"
     const oldButton = "blog-pager-older-link"
@@ -13,7 +13,7 @@ const Pager = ({ moveBackward, moveForward, current, max }) => {
                 <BasicButton id={newButton} title="Newer Posts" target="#" onClick={moveForward} />}
             {current[1] < max &&
                 <BasicButton id={oldButton} title="Older Posts" onClick={moveBackward} />}
-            <Link to="/" className="home-link">Home</Link>
+            <BasicButton onClick={resetHome} title="Home" />
         </div>
     )
 }
