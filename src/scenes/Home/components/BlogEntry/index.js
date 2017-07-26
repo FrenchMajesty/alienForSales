@@ -1,6 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router'
-import { formatDate } from '~/services/Helper'
+import {Link} from 'react-router'
+import {formatDate} from '~/services/Helper'
 
 const BlogEntry = ({data, author}) => {
 
@@ -54,8 +54,8 @@ const BlogEntry = ({data, author}) => {
         )
     }
     
-    const summary = data.description || data.article
-    // *Fix summary.length
+    let summary = data.description || data.article
+    if(summary.length >= 140) summary = summary.slice(0,140)+'...'
         return (
             <div className="date-outer">
 
@@ -80,9 +80,7 @@ const BlogEntry = ({data, author}) => {
                             </h2>
                         </div>
                         <div className="post-meta"></div>
-                        <div className="post-summary">
-                            {(10 >= 140 && (summary.slice(0,140)+'...')) ||
-                              summary}
+                        <div className="post-summary"  dangerouslySetInnerHTML={{__html: summary}}>
                         </div>
                         <div className="read-more">
                             <Link to={type+"/"+data.id}><span>Read More</span></Link>
