@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
-import BasicButton from '~/components/Button/BasicButton'
+import BasicButton from '../Button/BasicButton'
 import { formatDate } from '~/services/Helper'
 
 const ItemCard = ({data, author, animation}) => {
@@ -10,7 +10,7 @@ const ItemCard = ({data, author, animation}) => {
             <div className="social-share-circles">
             <Link to="#" title="Share on Facebook" className="sc-circle fb anim-1">   <i className="fa fa-facebook"></i> </Link>
             <Link to="#" title="Share on Google+" className="sc-circle gp anim-2">   <i className="fa fa-google-plus"></i> </Link>
-            <Link to="#" className="sc-circle tw anim-3">   <i className="fa fa-twitter"></i> </Link>
+            <Link to="#" className="sc-circle tw anim-3">  <i className="fa fa-twitter"></i> </Link>
             </div>
         )
     }
@@ -62,12 +62,12 @@ const ItemCard = ({data, author, animation}) => {
                 <div className="post hentry" itemProp="blogPost" itemScope="itemscope" itemType="http://schema.org/BlogPosting">
                 <div className="post-body entry-content" id="post-body-5393435426553883135" itemProp="description articleBody">
 
-                     <div className="media-box image">
+                    {data.image && <div className="media-box image">
                         <div className="overlay-img"></div>
                         <Link to="#" className="post-url"></Link>
                         <img className="image" src={data.image} />
                         {socialButtons()}
-                    </div>
+                    </div>}
                     <div className="content" style={{textAlign: "initial"}}>
                         <div className="post-title-box">
                             <h2>
@@ -76,10 +76,17 @@ const ItemCard = ({data, author, animation}) => {
                         </div>
                         <div className="post-meta"></div>
                         <div className="post-summary">
-                            {data.description}
+                            {data.description || 
+                            <div dangerouslySetInnerHTML={{__html: data.article}}></div>}
                         </div><br/>
-                        <center><BasicButton className={!data.quantity ? "disabled": ""} target="#" title="Buy now" color="#f15a24"/></center>
-                       
+                        
+                        {data.price && <section>
+                            <p>Price: ${Number(data.price).toLocaleString()}</p>
+                            {data.quantity > 0 && <p>Only {data.quantity} left!!</p>}
+                            
+                        <center><BasicButton id="buy-button" className={data.quantity == 0 ? "disabled": ""} target="#" title="Buy now" color="#f15a24"/></center>
+                        </section>}
+                        
                     </div>
 
                         <div className="material-post-footer">
