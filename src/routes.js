@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route, IndexRoute} from 'react-router'
+import {Route, IndexRoute, Redirect} from 'react-router'
 
 import App from './components/app'
 import Home from './scenes/Home'
@@ -16,6 +16,7 @@ import AddGallery from './scenes/Admin/AddGallery'
 import AddBlog from './scenes/Admin/AddBlog'
 import BlogList from './scenes/Admin/BlogList'
 import Settings from './scenes/Admin/Settings'
+import NotFound from './scenes/NotFound'
 
 const author = "Barrack Obama"
 export default (
@@ -36,5 +37,7 @@ export default (
                 <Route path="/admin/settings" component={Settings} />
             </Route>
             <Route path="/admin/login" component={Login} />
+            <Route path="/404" component={NotFound} />
+            <Redirect from='*' to='/404' />
         </Route>
 )
