@@ -63,6 +63,11 @@ button{
     padding: 10px 15px;
     color: #666;
 }
+.about-image {
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+}
 .wow {
     visibility: hidden;
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router'
+import {Link} from 'react-router'
 import PageWrapper from '~/components/Container/PageWrapper'
 import ColumnContainer from '~/components/Container/ColumnContainer'
 
@@ -26,15 +26,12 @@ const AboutMe = (props) => {
                         <div className="content" style={{textAlign: "initial", overflow: "auto"}}>
                             <div className="post-title-box">
                                 <h2>
-                                    <Link to="#">About Me</Link>
+                                    <Link>About Me</Link>
                                 </h2>
                             </div>
                             <div className="post-meta"></div>
                             <div className="post-summary" style={{marginBottom: "40px"}}>
-                                <img alt="My Photo" className="" height="80" src="//1.bp.blogspot.com/-mUS184Gu0I4/TWe0BAeXs0I/AAAAAAAAAAg/_GJt0S5xClo/s80/IMG3386A.jpg" width="60" />
-                                <div className="date-header" className="author-name">
-                                    My man
-                                </div>
+                                <img alt="My Photo" className="about-image" height="80" src="//1.bp.blogspot.com/-mUS184Gu0I4/TWe0BAeXs0I/AAAAAAAAAAg/_GJt0S5xClo/s80/IMG3386A.jpg" width="60" />
                                 <hr/>
                                 <div className="about-text">Story about me and my favorite chips brand
                                 <span>I’m a multi-focused developer working on interfaces and digitalization for businesses and organizations.</span>
@@ -43,12 +40,6 @@ const AboutMe = (props) => {
                                 </div>
                             </div>
                         </div>
-
-                            <div className="material-post-footer">
-                                <div className="clear"></div>
-                                <div className="clear"></div>
-                            </div>
-
                         </div>
                     </div>
                     </div>
