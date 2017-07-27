@@ -1,19 +1,14 @@
 import React from 'react'
-import {Link} from 'react-router'
-import FlatButton from 'material-ui/FlatButton'
 import FontIcon from 'material-ui/FontIcon'
 
-const BasicButton = ({className,disabled, target, color, title, icon, id, onClick}) => {
+const BasicButton = ({className, target, color, title, id, onClick}) => {
     
-    const bgCol = color ? {backgroundColor: color} : {}
-    const disabler = className ? {disabled: true} : {to: target}
-
    return (
-       <button className={"home-link basic-button " + className}
-            style={{overflow: "hidden"}, bgCol}
+       <button className={`home-link basic-button ${className}`}
+            style={{overflow: "hidden", backgroundColor: color || ''}}
             id={id}
             onTouchTap={onClick}
-           {...disabler}
+           disabled={(className == 'disabled' && true) || null}
         >
        {title}
        </button>
