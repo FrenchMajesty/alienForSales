@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router'
+import {Link} from 'react-router'
  
 const TopNavBar = (props) => {
     
@@ -22,13 +22,13 @@ const TopNavBar = (props) => {
                 <Link className="navbar-brand" href="index.html">ADMINBSB - MATERIAL DESIGN</Link>
             </div>
             <div className="collapse navbar-collapse" id="navbar-collapse">
-                <ul className="nav navbar-nav navbar-right">
+                {/*<ul className="nav navbar-nav navbar-right" style={{display: 'none'}}>
                     
                     <li><Link to="javascript:void(0);" className="js-search" data-close="true"><i className="material-icons">search</i></Link></li>
                     
                     
                     <li className="dropdown">
-                        <Link to="javascript:void(0);" className="dropdown-toggle" data-toggle="dropdown" role="button">
+                        <Link className="dropdown-toggle" data-toggle="dropdown" role="button">
                             <i className="material-icons">notifications</i>
                             <span className="label-count">7</span>
                         </Link>
@@ -214,7 +214,7 @@ const TopNavBar = (props) => {
                     </li>
                     
                     <li className="pull-right"><Link to="javascript:void(0);" className="js-right-sidebar" data-close="true"><i className="material-icons">more_vert</i></Link></li>
-                </ul>
+                </ul>*/}
             </div>
         </div>
     </nav>
