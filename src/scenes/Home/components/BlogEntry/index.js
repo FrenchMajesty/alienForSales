@@ -46,7 +46,7 @@ const BlogEntry = ({data, author}) => {
                     <span className="post-labels">Labels:
                         {data.tags.split(',').map((tag, i) => {
                             const comma = (i != 0) ? ', ' : ''
-                            return (<sect key={i}><i>{comma}</i><Link to="#" rel="tag">{tag}</Link></sect>)
+                            return (<sect key={i}><i>{comma}</i><Link to={`/${type}#${tag}`} rel="tag">{tag}</Link></sect>)
                         })}
                     </span>
                 </div>}
@@ -80,18 +80,12 @@ const BlogEntry = ({data, author}) => {
                             </h2>
                         </div>
                         <div className="post-meta"></div>
-                        <div className="post-summary"  dangerouslySetInnerHTML={{__html: summary}}>
+                        <div className="post-summary" dangerouslySetInnerHTML={{__html: summary}}>
                         </div>
                         <div className="read-more">
                             <Link to={type+"/"+data.id}><span>Read More</span></Link>
                         </div>
                     </div>
-
-                        <div className="material-post-footer">
-                            <div className="clear"></div>
-                            <div className="clear"></div>
-                        </div>
-
                     </div>
 
                     {renderFooter()}

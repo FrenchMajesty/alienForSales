@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router'
+import {hashHistory} from 'react-router'
 import PageWrapper from '~/components/Container/PageWrapper'
 import ColumnContainer from '~/components/Container/ColumnContainer'
 import GalleryGrid from './components/GalleryGrid'
@@ -21,6 +21,7 @@ class Gallery extends Component {
         this.moveBackward = this.moveBackward.bind(this)
         this.loadGalleryFeed = this.loadGalleryFeed.bind(this)
         this.searchGallery = this.searchGallery.bind(this)
+        this.searchViaHash = this.searchViaHash.bind(this)
     }
         
     getInitialState() {
@@ -28,7 +29,8 @@ class Gallery extends Component {
             limits: [0,5],
             size: 5,
             gallery: [],
-            fullGallery: []
+            fullGallery: [],
+            error: 'No gallery item found.'
         }
     }
     
@@ -40,17 +42,29 @@ class Gallery extends Component {
         new WOW().init()
     }
     
-    searchGallery(e) {
-        e.preventDefault()
-        const searchTerm = new RegExp(e.target.search.value.replace(/[^a-zA-Z 0-9]+/g,''), 'i')
+    componentWillReceiveProps() {
+        this.loadGalleryFeed(this.state.limits)    
+    }
+    
+    searchGallery(term) {
+        const searchTerm = new RegExp(term.replace(/[^a-zA-Z 0-9]+/g,''), 'i')
         const {fullGallery} = this.state
         
         const gal = fullGallery.filter((item,i) => {
             if(i < fullGallery.length-1)
-                return item.title.search(searchTerm) != -1 || item.description.search(searchTerm) != -1
+                return (item.title.search(searchTerm) != -1 || item.description.search(searchTerm) != -1 ||
+                        item.tags.search(searchTerm) != -1)
         })
-        gal.push(gal.length)
-        this.setState({gallery: gal})
+        if(gal.length == 0) 
+            this.setState({error: `No gallery item found that match '${term}'.`})
+        
+        this.setState({gallery: [...gal, gal.length]})
+    }
+    
+    searchViaHash() {
+        const searchTerm = this.props.location.hash.match(/^#([\w-]+)$/)
+        if(searchTerm) 
+            this.searchGallery(searchTerm[1])
     }
     
     loadGalleryFeed(limits) {
@@ -59,8 +73,11 @@ class Gallery extends Component {
             this.setState({
                 limits: limits,
                 gallery: response.data,
-                fullGallery: response.data
+                fullGallery: response.data,
+                error: undefined
             })
+            
+            if(this.props.location.hash) this.searchViaHash()
         })
     }
     
@@ -78,6 +95,7 @@ class Gallery extends Component {
         const baseState = this.getInitialState()
         this.setState(baseState)
         this.loadGalleryFeed(baseState.limits)
+        hashHistory.replace('')
     }
     
     renderGallery(gallery) {
@@ -93,7 +111,7 @@ class Gallery extends Component {
     }
     
     render() {
-        const {limits, gallery} = this.state
+        const {limits, gallery, error} = this.state
         return (
             <PageWrapper>
                 <SearchBar placeholder="Search the gallery" onSearch={this.searchGallery} />
@@ -107,7 +125,8 @@ class Gallery extends Component {
                 <ColumnContainer type="center">
                     <div className="blog-posts hfeed">
                         <GalleryGrid>
-                            {this.renderGallery(gallery)}
+                            {gallery.length > 1 && this.renderGallery(gallery) ||
+                            <p>{error}</p>}
                         </GalleryGrid>
                     </div>
                     <Pager current={limits} max={gallery[gallery.length-1]}
