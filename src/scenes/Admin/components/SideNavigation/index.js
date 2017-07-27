@@ -81,7 +81,7 @@ class SideNavigation extends Component {
                         <img src="images/user.png" width="48" height="48" alt="User" />
                     </div>
                     <div className="info-container">
-                        <div className="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{user.name}</div>
+                        <div className="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{user.username}</div>
                         <div className="email">{user.email}</div>
                         <div className="btn-group user-helper-dropdown">
                             <IconMenu

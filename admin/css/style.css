@@ -1,4 +1,4 @@
-﻿/* Navbar ====================================== */
+/* Navbar ====================================== */
 @import url(materialize.css);
 .navbar {
   font-family: "Roboto", sans-serif;
@@ -7377,7 +7377,7 @@ fieldset[disabled] .form-control {
     .dropdown-menu ul.menu.tasks .progress {
       height: 7px;
       margin-bottom: 7px; }
-    .dropdown-menu ul.menu .icon-circle {
+    .icon-circle {
       width: 36px;
       height: 36px;
       -webkit-border-radius: 50%;

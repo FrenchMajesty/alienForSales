@@ -68,6 +68,10 @@ button{
     margin: 0 auto;
     border-radius: 50%;
 }
+.post-share-buttons {
+    margin-top: -1em;
+    float: right;
+}
 .wow {
     visibility: hidden;
 }
