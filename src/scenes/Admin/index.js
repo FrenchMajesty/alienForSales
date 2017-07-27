@@ -10,12 +10,7 @@ class Admin extends Component {
     constructor(props) {
         super(props)
         
-        this.state = {
-            user: {
-                username: 'FrenchMajesty'
-            },
-            logged: undefined
-        }
+        this.state = {logged: undefined}
         
         this.verifyAccess = this.verifyAccess.bind(this)
         this.renderChildren = this.renderChildren.bind(this)
@@ -35,7 +30,7 @@ class Admin extends Component {
     verifyAccess() {
         verifyAdminAccess()
         .then(isAllowed => {
-            console.log('is allowed: ' + isAllowed.data)
+            console.log(isAllowed.data)
             if(isAllowed.data === false)
                 this.props.history.pushState(null, '/admin/login')
             else
@@ -54,7 +49,7 @@ class Admin extends Component {
     }
 
     render() {
-        const {user, logged} = this.state
+        const {logged} = this.state
         const { location, children } = this.props
         
         return (
@@ -65,8 +60,7 @@ class Admin extends Component {
                     <div>
                         <TopNavBar />
                         <section>
-                            <SideNavigation user={user} active={location.pathname} logout={this.handleLogout} />
-
+                            <SideNavigation user={logged} active={location.pathname} logout={this.handleLogout} />
                             <aside id="rightsidebar" className="right-sidebar">
                     <ul className="nav nav-tabs tab-nav-right" role="tablist">
                         <li role="presentation" className="active"><Link to="#skins" data-toggle="tab">SKINS</Link></li>
@@ -208,7 +202,6 @@ class Admin extends Component {
                         </div>
                     </div>
                 </aside>
-
                         </section>
                         {this.renderChildren(children)}
                     </div>
