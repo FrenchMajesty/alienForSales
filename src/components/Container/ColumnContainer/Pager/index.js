@@ -1,5 +1,4 @@
 import React from 'react'
-import {Link} from 'react-router'
 import BasicButton from '~/components/Button/BasicButton'
 
 
@@ -10,10 +9,10 @@ const Pager = ({ moveBackward, moveForward, resetHome, current, max }) => {
     return (
         <div className="blog-pager" id="blog-pager">
             {current[0] > 0 &&
-                <BasicButton id={newButton} title="Newer Posts" target="#" onClick={moveForward} />}
+                <BasicButton className="secondary secondary-button" id={newButton} title="Newer Posts" onClick={moveForward} />}
             {current[1] < max &&
-                <BasicButton id={oldButton} title="Older Posts" onClick={moveBackward} />}
-            <BasicButton onClick={resetHome} title="Home" />
+                <BasicButton className="secondary secondary-button" id={oldButton} title="Older Posts" onClick={moveBackward} />}
+            <BasicButton className="secondary secondary-button" onClick={resetHome} title="Home" />
         </div>
     )
 }
