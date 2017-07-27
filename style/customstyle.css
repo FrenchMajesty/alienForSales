@@ -1,6 +1,18 @@
 button{
     border: 0;
 }
+.primary {
+    background-color: var(--mainColor);
+}
+.secondary {
+    background-color: var(--secColor);
+}
+.secondary-button:hover {
+    background-color: var(--secLight);
+}
+.primary-button:hover {
+    background-color: var(--secLight);
+}
 .navbar {
     right: 11em;
     position: relative;
