@@ -7,7 +7,6 @@ TO DO LIST:
 * Redesign 'about' page
 * Add real 'share' buttons
 * Clean up footer
+* Add 404 page
 * Use $ action button in Gallery
-* Top Navbar usability in admin panel
-* Properly display username
 * API: Look into using Json Web Token instead of session
