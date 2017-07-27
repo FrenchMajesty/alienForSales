@@ -1,22 +1,13 @@
 import React from 'react'
 import {Link} from 'react-router'
+import FooterSocials from '~/components/Container/FooterSocials'
+import RoundSocialButtons from '~/components/RoundSocialButtons'
 import {formatDate} from '~/services/Helper'
 
 const BlogEntry = ({data, author}) => {
 
     
     const type = data.price ? 'gallery' : 'blog'
-    
-    const socialButtons = () => {
-        return (
-            <div className="social-share-circles">
-            <Link to="#" title="Share on Facebook" className="sc-circle fb anim-1">   <i className="fa fa-facebook"></i> </Link>
-            <Link to="#" title="Share on Google+" className="sc-circle gp anim-2">   <i className="fa fa-google-plus"></i> </Link>
-            <Link to="#" className="sc-circle tw anim-3">   <i className="fa fa-twitter"></i> </Link>
-            <Link to="#" title="Buy this piece" className="sc-circle em anim-4" style={{backgroudColor: "#5baf59"}}>   <i className="fa fa-shopping-cart"></i> </Link>
-            </div>
-        )
-    }
 
     const renderHead = () => {
         return (
@@ -38,7 +29,7 @@ const BlogEntry = ({data, author}) => {
                             {data.quantity &&
                                 <Link to={type+"/"+data.id} className="comment-link"> {data.quantity} left in stock! </Link>}
                     </span>
-                    <div className="post-share-buttons goog-inline-block"></div>
+                    <FooterSocials />
                 </div>
 
                 {type == 'gallery' &&
@@ -71,7 +62,7 @@ const BlogEntry = ({data, author}) => {
                         <div className="overlay-img"></div>
                         <Link to={type+"/"+data.id} className="post-url"></Link>
                         <img className="image" src={data.image} />
-                        {socialButtons()}
+                        <RoundSocialButtons />
                     </div>}
                     <div className="content" style={{textAlign: "initial"}}>
                         <div className="post-title-box">
