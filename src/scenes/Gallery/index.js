@@ -119,7 +119,7 @@ class Gallery extends Component {
                 <div className="main-outer">
                 <div className="fauxborder-left main-fauxborder-left">
                 <div className="main-inner gallery-grid" style={{width: "90%"}}>
-                <div className="columns" style={{padding: "0"}}>
+                <div className="columns" style={{padding: gallery.length > 1 ? '0' : '7em 0'}}>
                 <div className="columns-inner">
 
                 <ColumnContainer type="center">

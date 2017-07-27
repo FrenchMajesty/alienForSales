@@ -44,6 +44,7 @@ class Home extends Component {
                 limits: limits,
                 posts: posts.data
             })
+            window.scroll(0,0)
         })
     }
     
@@ -76,6 +77,7 @@ class Home extends Component {
     
     render() {
         const {limits, posts} = this.state
+        const {author} = this.props.route
         return (
             <PageWrapper>
 
@@ -86,7 +88,7 @@ class Home extends Component {
             <div className="columns-inner">
 
             <ColumnContainer type="center">
-                <div className="blog-posts hfeed">
+                <div className="blog-posts hfeed"  style={{padding: posts.length > 1 ? '0' : '10em 0'}}>
                     {this.renderPosts()}
                 </div>
                     <Pager current={limits} max={posts[posts.length-1]}
@@ -109,7 +111,7 @@ class Home extends Component {
                         <dl className="profile-datablock">
                             <dt className="profile-data">
                                 <Link className="profile-name-link g-profile" href="#" rel="author" data-gapiscan="true" data-onload="true" data-gapiattached="true">
-                                    Deepak Kamat
+                                    {author}
                                 </Link>
                             </dt>
                             <dd className="profile-textblock">A passionate programmer, web developer and designer. Ready to learn anything new..</dd>
