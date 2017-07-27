@@ -1,7 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router'
+import {Link} from 'react-router'
 import BasicButton from '../Button/BasicButton'
-import { formatDate } from '~/services/Helper'
+import FlatButton from 'material-ui/FlatButton'
+import {indigo600} from 'material-ui/styles/colors'
+import {formatDate} from '~/services/Helper'
 
 const ItemCard = ({data, author, animation}) => {
 
@@ -35,7 +37,14 @@ const ItemCard = ({data, author, animation}) => {
                             {data.quantity > 0 &&
                                 <Link to="#buy" className="comment-link"> {data.quantity} left in stock! </Link>}
                     </span>
-                    <div className="post-share-buttons goog-inline-block"></div>
+                    <div className="post-share-buttons goog-inline-block">
+                        <FlatButton
+                          href="https://github.com/callemall/material-ui"
+                          target="_blank"
+                          style={{color: indigo600}}
+                          icon={<i className="fa fa-facebook fa-lg"></i>}
+                        />
+                    </div>
                 </div>
 
                 <div className="post-footer-line post-footer-line-2">
@@ -51,7 +60,6 @@ const ItemCard = ({data, author, animation}) => {
     }
 
         const anim = animation || "fadeInLeft"
-        
         return (
             <div className="date-outer">
 
@@ -60,7 +68,7 @@ const ItemCard = ({data, author, animation}) => {
                 <div className="date-posts">
                 <div className={"post-outer summarized wow "+anim}>
                 <div className="post hentry" itemProp="blogPost" itemScope="itemscope" itemType="http://schema.org/BlogPosting">
-                <div className="post-body entry-content" id="post-body-5393435426553883135" itemProp="description articleBody">
+                <div className="post-body entry-content" id="post-body-5393435426553883135" itemProp="description articleBody" style={{textAlign: "initial"}}>
 
                     {data.image && <div className="media-box image">
                         <div className="overlay-img"></div>
@@ -68,7 +76,7 @@ const ItemCard = ({data, author, animation}) => {
                         <img className="image" src={data.image} />
                         {socialButtons()}
                     </div>}
-                    <div className="content" style={{textAlign: "initial"}}>
+                    <div className="content">
                         <div className="post-title-box">
                             <h2>
                                 <Link to="#">{data.title}</Link>
@@ -79,17 +87,16 @@ const ItemCard = ({data, author, animation}) => {
                             {data.description || 
                             <div dangerouslySetInnerHTML={{__html: data.article}}></div>}
                         </div><br/>
-                        
-                        {data.price && <section>
-                            <p>Price: ${Number(data.price).toLocaleString()}</p>
-                            {data.quantity > 0 && <p>Only {data.quantity} left!!</p>}
-                            
-                        <center><BasicButton id="buy-button" className={data.quantity == 0 ? "disabled": ""} target="#" title="Buy now" color="#f15a24"/></center>
-                        </section>}
-                        
                     </div>
 
                         <div className="material-post-footer">
+                            {data.price && 
+                                <section>
+                                    <p>Price: ${Number(data.price).toLocaleString()}</p>
+                                    {data.quantity > 0 && <p>Only {data.quantity} left!!</p>}
+
+                                <center><BasicButton id="buy-button" className={data.quantity == 0 ? "disabled": ""} target="#" title="Buy now" color="#f15a24"/></center>
+                                </section>}
                             <div className="clear"></div>
                             <div className="clear"></div>
                         </div>
