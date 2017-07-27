@@ -6,6 +6,8 @@ const CLOUDINARY_KEY = 'v75nh578'
 
 const BASE_URL = 'http://verdiks-macbook-air-2.local/alien'
 
+export const PAYPAL_CLIENT_ID = 'ATnI1PCqUBdqf7LhscP9RVcuHCa5jUZGKIkuE31x-RNgcVD7ylCCbqH67_X7NpoLsUIox5pHmfiWsMLU'
+
 export function uploadImage(file, callback){
     
     let upload = request.post(CLOUDINARY_URL)
@@ -48,6 +50,10 @@ export function postLogin(formData, callback) {
 
 export function postLogout() {
     return axios.get(`${BASE_URL}/system/logout`)
+}
+
+export function sendResetEmail(email) {
+    return axios.post(`${BASE_URL}/system/post/reset/password`, {email})
 }
 
 export function verifyAdminAccess() {

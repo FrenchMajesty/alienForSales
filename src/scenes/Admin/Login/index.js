@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router'
-import Toggle from 'material-ui/Toggle'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import TextInput from '../components/Form/TextInput'
-import { Card, CardText } from 'material-ui/Card'
-import { displayErrors } from '~/services/Helper'
-import { postLogin } from '~/services/api'
+import {Card, CardText} from 'material-ui/Card'
+import {displayErrors} from '~/services/Helper'
+import {postLogin, sendResetEmail} from '~/services/api'
 
 class Login extends Component {
     
@@ -21,6 +20,7 @@ class Login extends Component {
             error: []
         }
         
+        this.handleResetSubmit = this.handleResetSubmit.bind(this)
         this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
         this.onInputChange = this.onInputChange.bind(this)
         this.showResetter = this.showResetter.bind(this)
@@ -48,8 +48,15 @@ class Login extends Component {
     handleResetSubmit(e) {
         e.preventDefault()
         
-        const {email} = this.state
-        // API CALLS
+        sendResetEmail(this.state.email)
+        .then(response => {
+            if(!response.data)
+                alert('No user associated with the given email exist.')
+            else if(response.data.error)
+                alert(response.data.error)
+            else
+                alert('Email recovery successfully sent! Please check your mailbox.')
+        })
     }
     
     handleLoginSubmit(e) {
