@@ -10,7 +10,7 @@ const GalleryItem = ({data, author, animation}) => {
                 <div className="post-footer-line post-footer-line-1">
                     <span className="post-author vcard">By {author}</span>
                     <span className="post-comment-link">{data.quantity} left in stock!</span>
-                    <RoundActionButton icon={"attach_money"} title={`$${Number(data.price).toLocaleString()}`} />
+                    {/*<RoundActionButton icon={"attach_money"} title={`$${Number(data.price).toLocaleString()}`} />*/}
                     <div className="post-share-buttons goog-inline-block"></div>
                 </div>
                 
