@@ -6,7 +6,7 @@ const Navbar = (props) => {
 
     return(
         <section>
-        <header className="main-header">
+        <header className="main-header primary">
             <div className="inner-container">
             <div className="header-outer">
             <div className="fauxborder-left header-fauxborder-left">
@@ -28,7 +28,7 @@ const Navbar = (props) => {
             </div>
             </div>
         </header>
-        <nav className="navigation" id="navbar_links">
+        <nav className="navigation primary-dark" id="navbar_links">
         <div className="inner-container navbar">
         <ul className="nav-bar-link">
             <li>

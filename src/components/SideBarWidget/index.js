@@ -6,7 +6,7 @@ const SideBarWidget = (props) => {
     const {title} = props
     return (
         <div className="widget Profile" data-version="1" id="Profile1" style={{textAlign: "initial"}}>
-            <h2>{title}</h2>
+            <h2 className="primary">{title}</h2>
             <div className="widget-content">
 
             {props.children}
