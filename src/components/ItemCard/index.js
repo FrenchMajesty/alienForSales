@@ -1,8 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router'
 import BasicButton from '../Button/BasicButton'
-import FlatButton from 'material-ui/FlatButton'
-import {indigo600} from 'material-ui/styles/colors'
+import FooterSocials from '../Container/FooterSocials' 
 import {formatDate} from '~/services/Helper'
 
 const ItemCard = ({data, author, animation}) => {
@@ -37,14 +36,7 @@ const ItemCard = ({data, author, animation}) => {
                             {data.quantity > 0 &&
                                 <Link to="#buy" className="comment-link"> {data.quantity} left in stock! </Link>}
                     </span>
-                    <div className="post-share-buttons goog-inline-block">
-                        <FlatButton
-                          href="https://github.com/callemall/material-ui"
-                          target="_blank"
-                          style={{color: indigo600}}
-                          icon={<i className="fa fa-facebook fa-lg"></i>}
-                        />
-                    </div>
+                    <FooterSocials url={`http://google.com`} />
                 </div>
 
                 <div className="post-footer-line post-footer-line-2">
