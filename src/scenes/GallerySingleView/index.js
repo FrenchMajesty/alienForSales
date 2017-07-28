@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import ItemCard from '~/components/ItemCard'
 import PageWrapper from '~/components/Container/PageWrapper'
 import ColumnContainer from '~/components/Container/ColumnContainer'
-import { loadGallery } from '~/services/api'
+import ModalDialog from '~/components/ModalDialog'
+import {loadGallery, registerPurchase, PAYPAL_CLIENT_ID} from '~/services/api'
 
 class GallerySingleViw extends Component {
     
@@ -10,43 +11,95 @@ class GallerySingleViw extends Component {
         super(props)
         
         this.state = {
-            data: {}
+            data: {},
+            modalContent: undefined
         }
+        
+        this.promptModal = this.promptModal.bind(this)
+        this.activatePaypalButton = this.activatePaypalButton.bind(this)
+        this.loadFromGallery = this.loadFromGallery.bind(this)
     }
     
     componentWillMount() {
+        this.loadFromGallery()      
+    }
+    
+    loadFromGallery() {
         const {params, history} = this.props
         
         loadGallery(params.id)
         .then(response => {
             if(response.data.error || !response.data.id) {
-                history.push(null, '/404')
+                history.pushState(null, '/404')
             }else {
                 this.setState({data: response.data})
                 if(response.data.quantity > 0) this.activatePaypalButton()
             }
-        })
+        }) 
     }
     
     activatePaypalButton() {
+        const {data: item} = this.state
+        const total = Number(item.price).toFixed(2).toLocaleString()
+        const self = this
+        
         paypal.Button.render({
 
-            env: 'production', // Or 'sandbox',
-
+            env: 'sandbox',
+            
+            client: {
+                sandbox:    'ATnI1PCqUBdqf7LhscP9RVcuHCa5jUZGKIkuE31x-RNgcVD7ylCCbqH67_X7NpoLsUIox5pHmfiWsMLU',
+                production: PAYPAL_CLIENT_ID
+            },
             commit: true, // Show a 'Pay Now' button
 
-            payment: function() {
-                        // Set up the payment here
+            payment: function(data, actions) {
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+                                amount: { total: `${total}`, currency: 'USD' 
+                                    /*, details: {
+                                      "subtotal": "30.00",
+                                      "tax": "0.07",
+                                      "shipping": "0.03",
+                                      "handling_fee": "1.00",
+                                      "shipping_discount": "-1.00",
+                                      "insurance": "0.01"
+                                    }*/
+                                },
+                                description: `aliensforsales.com Art purchase - '${item.title}'`
+                            }
+                        ]
+                    }
+                })
             },
 
             onAuthorize: function(data, actions) {
-                        // Execute the payment here
+                return actions.payment.execute().then(payment => {
+                    
+                    const formData = {
+                        item: item.id,
+                        amount: payment.transactions[0].amount.total,
+                        transaction_id: payment.id
+                    }
+                    console.log(payment)
+                    registerPurchase(formData)
+                    .then(response => {
+                        console.log(response.data)
+                        self.promptModal(<p>Your purchase was successfully completed!</p>)
+                    })
+                })
             }
         }, '#buy-button')
     }
     
+    promptModal(modalContent) {
+        this.setState({modalContent})   
+    }
+    
     render() {
-        const {data} = this.state
+        const {data, modalContent} = this.state
         const {author} = this.props.route
         return (
             <PageWrapper>
@@ -68,6 +121,10 @@ class GallerySingleViw extends Component {
                 </div>
                 </div>
                 </div>
+                {modalContent && 
+                 <ModalDialog show={true} onClose={() => {this.props.history.pushState('/')}}>
+                {modalContent}
+                </ModalDialog>}
             </PageWrapper>
         )
     }

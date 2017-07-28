@@ -6,7 +6,7 @@ const CLOUDINARY_KEY = 'v75nh578'
 
 const BASE_URL = 'http://verdiks-macbook-air-2.local/alien'
 
-export const PAYPAL_CLIENT_ID = 'ATnI1PCqUBdqf7LhscP9RVcuHCa5jUZGKIkuE31x-RNgcVD7ylCCbqH67_X7NpoLsUIox5pHmfiWsMLU'
+export const PAYPAL_CLIENT_ID = 'ATtRNDGGhyFBQRKWeYiyfR1doCquncWOrtJKU2grTISENLK5wH6qsVbuLbEVHjZHyDdjX08HpLHMpNYv'
 
 export function uploadImage(file, callback){
     
@@ -42,6 +42,10 @@ export function loadGallery(id) {
 
 export function loadBlog(id) {
     return axios.get(`${BASE_URL}/public/fetch/articles/${id}`)
+}
+
+export function registerPurchase(formData) {
+    return axios.post(`${BASE_URL}/public/purchase`, formData)
 }
 
 export function postLogin(formData, callback) {

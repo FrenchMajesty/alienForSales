@@ -3,7 +3,7 @@
 TO DO LIST:
 
 * Apply primary and secondary color to site
-* Paypal API
+* Add shipping + tax details in Paypal API checkout
 * Redesign 'about' page
 * Add real 'share' buttons
 * Use $ action button in Gallery
