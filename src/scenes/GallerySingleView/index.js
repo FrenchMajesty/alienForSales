@@ -40,7 +40,8 @@ class GallerySingleViw extends Component {
     
     activatePaypalButton() {
         const {data: item} = this.state
-        const total = Number(item.price).toFixed(2).toLocaleString()
+        let total = item.price
+        total = Number(total).toFixed(2).toLocaleString()
         const self = this
         
         paypal.Button.render({
@@ -62,7 +63,7 @@ class GallerySingleViw extends Component {
                                     /*, details: {
                                       "subtotal": "30.00",
                                       "tax": "0.07",
-                                      "shipping": "0.03",
+                                      "shipping": "16.00",
                                       "handling_fee": "1.00",
                                       "shipping_discount": "-1.00",
                                       "insurance": "0.01"

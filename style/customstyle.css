@@ -4,6 +4,9 @@ button{
 .primary {
     background-color: var(--mainColor);
 }
+.primary-dark {
+    background-color: Var(--mainDark);
+}
 .secondary {
     background-color: var(--secColor);
 }

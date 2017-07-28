@@ -42,7 +42,7 @@ class Footer extends Component {
     
     renderTags(tags) {
         return(tags.map((tag, i) => {
-            return(<li key={i}><Link to={`/gallery#${tag}`} dir="ltr">{tag}</Link></li>)
+            return(<li key={i}><Link to={`/gallery#${tag.trim()}`} dir="ltr">{tag}</Link></li>)
         }))
     }
     
