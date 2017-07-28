@@ -126,6 +126,10 @@ class GallerySingleViw extends Component {
                  <ModalDialog show={true} onClose={() => {this.props.history.pushState('/')}}>
                 {modalContent}
                 </ModalDialog>}
+                <meta property="og:type" content="product" />
+                <meta property="og:title" content={data.title} />
+                <meta property="og:description" content={data.description} />
+                <meta property="og:image" content={data.image} />
             </PageWrapper>
         )
     }
